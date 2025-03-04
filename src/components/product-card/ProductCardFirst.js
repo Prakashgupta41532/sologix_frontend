@@ -1,6 +1,7 @@
 import { Button, Card } from "@nextui-org/react";
 import productOne from "../../../public/product-one.png"
 import Image from "next/image";
+import { toast } from "sonner";
 
 export const ProductCardFirst = () => {
     const specifications = [
@@ -11,6 +12,9 @@ export const ProductCardFirst = () => {
         { label: "System Life", value: "25 Years" },
         { label: "Payback Period", value: "4 Years" }
     ];
+    const handleAddToCart = () => {
+        toast.success("Added to cart!");
+    };
 
     return (
         <div className="w-[320px] bg-white rounded-xl shadow-lg p-6">
@@ -54,6 +58,7 @@ export const ProductCardFirst = () => {
                     className="flex-1 border-[#00237D] text-[#00237D]"
                     variant="bordered"
                     radius="full"
+                    onPress={handleAddToCart}
                 >
                     Add to Cart
                 </Button>
