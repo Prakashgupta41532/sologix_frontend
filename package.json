@@ -1,0 +1,39 @@
+{
+  "name": "solar",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint"
+  },
+  "dependencies": {
+    "@nextui-org/react": "^2.4.2",
+    "@reduxjs/toolkit": "^2.2.6",
+    "antd": "^5.19.3",
+    "autoprefixer": "^10.4.20",
+    "axios": "^1.7.2",
+    "framer-motion": "^11.2.13",
+    "moment": "^2.30.1",
+    "next": "^14.2.18",
+    "payment": "^2.4.7",
+    "react": "^18",
+    "react-datepicker": "^7.3.0",
+    "react-dom": "^18",
+    "react-hook-form": "^7.52.1",
+    "react-redux": "^9.1.2",
+    "react-slick": "^0.30.2",
+    "react-table": "^7.8.0",
+    "sharp": "^0.33.5",
+    "slick-carousel": "^1.8.1",
+    "sonner": "^1.5.0",
+    "swiper": "^11.1.4",
+    "zod": "^3.23.8"
+  },
+  "devDependencies": {
+    "@types/react": "^18.3.12",
+    "postcss": "^8",
+    "tailwindcss": "^3.4.1"
+  }
+}
