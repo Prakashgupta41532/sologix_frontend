@@ -12,6 +12,9 @@ import logo4 from "../../../public/Group.png";
 import gridsolor from "../../../public/Group (2).png";
 // import { toast } from "sonner";
 import { message, notification } from "antd";
+import { ProductCardFirst } from "@/components/product-card/ProductCardFirst";
+import { ProductCardSecond } from "@/components/product-card/ProductCardSecond";
+import { ProductCardThird } from "@/components/product-card/ProductCardThird";
 
 export const AfterLeadingPage = () => {
   const session = useSelector((state) => state.session);
@@ -163,7 +166,7 @@ export const AfterLeadingPage = () => {
         </div>
       </div>
 
-      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-5 p-4 md:p-8">
+      {/* <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-5 p-4 md:p-8">
         {cards.slice(0, showAll ? cards.length : 5).map((card) => (
           <Card key={card.id}   className="flex flex-col items-center p-5 mt-4 text-[#03257F]">
             <h3 className="text-center text-xl font-semibold text-[#00237D] mb-4">
@@ -179,6 +182,11 @@ export const AfterLeadingPage = () => {
             <Button onClick={() => handelPurchase(card)} className="bg-[#00237D] text-white py-[2px] px-12 rounded-full">Purchase</Button>
           </Card>
         ))}
+      </div> */}
+      <div className="flex flex-row gap-5 p-4 md:p-8">
+        <ProductCardFirst />
+        <ProductCardSecond />
+        <ProductCardThird />
       </div>
 
       <div className="bg-gray-100 text-black p-6 md:p-10 mt-10 rounded-lg">

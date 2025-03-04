@@ -26,9 +26,9 @@ export const AboutUs = () => {
             climate change and limit the Earth's rising temperature.”
           </span>
           <div className="flex space-x-4">
-            <button className="px-4 py-2 md:px-6 md:py-3 rounded-full shadow-lg border border-[#357CCA] font-bold">
+            <a className="px-4 py-2 md:px-6 md:py-3 rounded-full shadow-lg border border-[#357CCA] font-bold" href="/aboutus">
               Know More!
-            </button>
+            </a>
           </div>
         </div>
       </div>

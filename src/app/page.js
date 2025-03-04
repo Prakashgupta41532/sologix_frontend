@@ -13,10 +13,10 @@ export default function Home() {
   return (
     <div>
       <Hero />
+      <ExploreProducts />
       <FreeElectricity />
       <TrustedBy />
       <AboutUs />
-      <ExploreProducts />
       <WhySolar />
       <OurJourney />
       

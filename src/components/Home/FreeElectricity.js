@@ -75,7 +75,7 @@ export const FreeElectricity = () => {
         Pradhan Mantri Surya Ghar Muft Bijli Yojana
       </h1>
       <div className="text-center">
-        <div className="flex items-center justify-center mx-auto mb-4 p-4">
+        {/* <div className="flex items-center justify-center mx-auto mb-4 p-4">
           <iframe
             width="750"
             height="380"
@@ -86,7 +86,7 @@ export const FreeElectricity = () => {
             referrerPolicy="strict-origin-when-cross-origin"
             allowFullScreen
           ></iframe>
-        </div>
+        </div> */}
         <div className="mx-auto text-center text-wrap w-full">
           <p className="font-semibold text-center">
             PM Surya Ghar Muft Bijli Yojana का उद्देश्य
@@ -117,14 +117,14 @@ export const FreeElectricity = () => {
           </Card>
         ))}
       </div>
-      <div className="text-center mt-8">
+      {/* <div className="text-center mt-8">
         <Button
           onClick={() => setShowAll(!showAll)}
           className="px-4 py-2 md:px-6 md:py-3 rounded-full shadow-lg border border-[#357CCA] font-bold bg-white"
         >
           {showAll ? "Learn Less!" : "Learn More!"}
         </Button>
-      </div>
+      </div> */}
     </div>
   );
 };

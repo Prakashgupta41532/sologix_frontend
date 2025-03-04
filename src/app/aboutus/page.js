@@ -1,7 +1,7 @@
 "use client";
 import React, { useState } from "react";
 import Image from "next/image";
-import AnilKumar from "../../../public/AnilKumar.jpg";
+import Avatar from "../../../public/Avatar.png";
 import Amitranjan from "../../../public/AmitRanjan.jpg";
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
@@ -263,7 +263,7 @@ const AboutUs = () => {
       <div className="flex items-center justify-center flex-col mt-12">
         <h1 className="text-[#344DA3] font-bold text-3xl mb-8">Our Team</h1>
         <div className="flex flex-wrap items-center justify-center gap-8 sm:gap-14">
-          <div className="w-56 border-[#F8A000] to-[#925E00] bg-custom-gradient p-3 rounded-md mb-4 sm:mb-0">
+          {/* <div className="w-56 border-[#F8A000] to-[#925E00] bg-custom-gradient p-3 rounded-md mb-4 sm:mb-0">
             <div className="w-full bg-white p-4 rounded-md flex flex-col items-center justify-center ">
               <Image src={AnilKumar} className="border-1 w-36" />
               <h1 className="font-bold text-xl">Anil Kumar</h1>
@@ -272,7 +272,7 @@ const AboutUs = () => {
                 Littlebit about founders
               </span>
             </div>
-          </div>
+          </div> */}
           <div className="w-56 border-[#F8A000] to-[#925E00] bg-custom-gradient p-3 rounded-md mb-4 sm:mb-0">
             <div className="w-full bg-white p-4 rounded-md flex flex-col items-center justify-center ">
               <Image src={Amitranjan} className="border-1 w-36" />
@@ -304,7 +304,7 @@ const AboutUs = () => {
                   <div>
                     <div className="flex items-center gap-5 mt-12">
                       <Image
-                        src={Amitranjan}
+                        src={Avatar}
                         alt="Person Image"
                         className="w-12 h-12 border-1 rounded-full"
                       />
@@ -376,7 +376,7 @@ const AboutUs = () => {
                   <div>
                     <div className="flex items-center gap-5 mt-12">
                       <Image
-                        src={Amitranjan}
+                        src={Avatar}
                         alt="Person Image"
                         className="w-12 h-12 border-1 rounded-full"
                       />
