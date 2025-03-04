@@ -128,7 +128,10 @@ const Header = () => {
           </Dropdown>
         )}
         {userSession && (
-          <div className="flex items-center cursor-pointer relative">
+          <a
+            className="flex items-center cursor-pointer relative"
+            href={'/product-details'}
+          >
             <svg
               xmlns="http://www.w3.org/2000/svg"
               width="24"
@@ -148,7 +151,7 @@ const Header = () => {
             <div className="absolute -top-2 -right-2 bg-red-500 text-white text-xs rounded-full w-5 h-5 flex items-center justify-center">
               3
             </div>
-          </div>
+          </a>
         )}
         <NavbarMenu>
           {menuItems.map((item, index) => (
