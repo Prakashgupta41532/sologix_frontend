@@ -83,7 +83,6 @@ const ProductDetails = () => {
                         </div>
                     </div>
 
-                    {/* Checkout Button */}
                     <Button
                         className="w-full bg-[#00237D] text-white rounded-full"
                         size="lg"

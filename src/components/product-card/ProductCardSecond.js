@@ -2,8 +2,11 @@ import { Button, Card } from "@nextui-org/react";
 import productTwo from "../../../public/product-two.png"
 import Image from "next/image";
 import { toast } from "sonner";
+import { useRouter } from "next/navigation";
 
 export const ProductCardSecond = () => {
+    const router = useRouter();
+
     const specifications = [
         { label: "Roof Area Required", value: "20 Sqm" },
         { label: "Annual Energy Generation", value: "3,700 Units" },
@@ -14,6 +17,7 @@ export const ProductCardSecond = () => {
     ];
 
     const handleAddToCart = () => {
+        router.push('/product-details');
         toast.success("Added to cart!");
     };
     return (

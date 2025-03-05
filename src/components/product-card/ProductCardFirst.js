@@ -17,6 +17,7 @@ export const ProductCardFirst = () => {
 
     const handleAddToCart = () => {
         router.push('/product-details');
+        toast.success("Added to cart!");
     };
 
     return (
