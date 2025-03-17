@@ -130,7 +130,7 @@ const Header = () => {
         {userSession && (
           <a
             className="flex items-center cursor-pointer relative"
-            href={'/product-details'}
+            href={'/cart'}
           >
             <svg
               xmlns="http://www.w3.org/2000/svg"

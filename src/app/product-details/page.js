@@ -2,9 +2,12 @@
 import { Button } from "@nextui-org/react";
 import Image from "next/image";
 import { useState } from "react";
+import SuccessModal from "@/components/Modals/SuccessModal";
+import FailureModal from "@/components/Modals/FailureModal";
 
 const ProductDetails = () => {
     const [quantity, setQuantity] = useState(1);
+    const [isModalOpen, setIsModalOpen] = useState(false);
 
     const specifications = [
         { label: "Roof Area Required", value: "20 Sqm" },
@@ -86,11 +89,20 @@ const ProductDetails = () => {
                     <Button
                         className="w-full bg-[#00237D] text-white rounded-full"
                         size="lg"
+                        onClick={() => setIsModalOpen(true)}
                     >
                         Proceed to Checkout
                     </Button>
                 </div>
             </div>
+            {/* <FailureModal
+                isOpen={isModalOpen}
+                onClose={() => setIsModalOpen(false)}
+            /> */}
+            <SuccessModal 
+                isOpen={isModalOpen}
+                onClose={() => setIsModalOpen(false)}
+            />
         </div>
     );
 };
