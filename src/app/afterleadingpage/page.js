@@ -9,16 +9,16 @@ import Rectangle2 from "../../../public/Rectangle 2.png";
 import Rectangle3 from "../../../public/Rectangle 3.png";
 import ServiceImage from "../../../public/service-image.png";
 import logo4 from "../../../public/Group.png";
-import gridsolor from "../../../public/Group (2).png";
-// import { toast } from "sonner";
+import productThree from "../../../public/product-three.png"
+import gridsolor from "../../../public/product-one.png";
 import { message, notification } from "antd";
 import { ProductCardFirst } from "@/components/product-card/ProductCardFirst";
-import { ProductCardSecond } from "@/components/product-card/ProductCardSecond";
-import { ProductCardThird } from "@/components/product-card/ProductCardThird";
+import { toast } from "sonner";
+import { useRouter } from "next/navigation";
 
 export const AfterLeadingPage = () => {
   const session = useSelector((state) => state.session);
-
+  const router = useRouter();
   const [loading, setLoading] = useState(false);
   const [productList, setProductList] = useState(null);
 
@@ -26,9 +26,9 @@ export const AfterLeadingPage = () => {
     try {
       setLoading(true);
       const response = await API.get("/products/Get-products");
-  
+
       if (response.status === 200) {
-          setProductList(response.data.data);
+        setProductList(response.data.data);
       } else {
         console.error("Error fetching products:", response);
         toast.error(response?.data?.error || "Failed to fetch products.");
@@ -44,8 +44,41 @@ export const AfterLeadingPage = () => {
   };
 
   useEffect(() => {
-      getProductsList();
+    getProductsList();
   }, []);
+
+  const handleAddToCart = async (item) => {
+    try {
+      setLoading(true);
+      const userSession = localStorage.getItem("userSession");
+      const parsedSession = userSession ? JSON.parse(userSession) : null;
+      const accessToken = parsedSession?.access_token;
+      console.log('+++++++++++++', accessToken);
+      const response = await API.post("/products/Post-products", item,   {
+        headers: {
+          Authorization: `Bearer ${accessToken}`,
+          "Content-Type": "application/json",
+        },
+      });
+
+      if (response.status === 201) {
+        toast.success("Product added to cart successfully!");
+        router.push('/cart');
+      } else {
+        console.error("Error adding product to cart:", response);
+        toast.error(response?.data?.error || "Failed to add product to cart.");
+      }
+    } catch (error) {
+      console.error("API Error:", error);
+      toast.error("An error occurred while adding product to cart.");
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const handlePressCard = (item) => {
+    router.push(`/product-details/${item._id}`);
+  }
 
   const handelPurchase = async (card) => {
     const perInstallments = Math.ceil(card.totalAmount / 4);
@@ -170,7 +203,7 @@ export const AfterLeadingPage = () => {
           </Card>
         ))}
       </div> */}
-      
+
       {/* <div className="max-w-7xl mx-auto">
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 xl:grid-cols-3 gap-5 p-4 md:p-8 justify-items-center">
           {produtList?.map((card) => (
@@ -188,28 +221,30 @@ export const AfterLeadingPage = () => {
         </div>
       </div> */}
 
-<div className="max-w-7xl mx-auto">
-      {loading ? (
-        <div className="flex justify-center items-center h-64">
-          <div className="w-10 h-10 border-4 border-gray-300 border-t-blue-500 rounded-full animate-spin"></div>
-        </div>
-      ) : (
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 xl:grid-cols-3 gap-5 p-4 md:p-8 justify-items-center">
-          {productList?.map((card) => (
-            <ProductCardFirst
-              key={card._id}
-              title={card.system}
-              imageSrc={card.imageSrc}
-              description={card.product_description}
-              productDetails={card.product_details}
-              onBuyNow={() => handlePurchase(card)}
-              onAddToCart={() => handleAddToCart(card)}
-              productId={card._id}
-            />
-          ))}
-        </div>
-      )}
-    </div>
+      <div className="max-w-7xl mx-auto">
+        {loading ? (
+          <div className="flex justify-center items-center h-64">
+            <div className="w-10 h-10 border-4 border-gray-300 border-t-blue-500 rounded-full animate-spin"></div>
+          </div>
+        ) : (
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 xl:grid-cols-3 gap-5 p-4 md:p-8 justify-items-center">
+            {productList?.map((card) => (
+              <ProductCardFirst
+                key={card._id}
+                title={card.system}
+                imageSrc={card.system == "On-Grid Solar System" ? gridsolor : productThree}
+                description={card.product_description}
+                productDetails={card.product_details}
+                onBuyNow={() => handelPurchase(card)}
+                onAddToCart={() => handleAddToCart(card)}
+                productId={card._id}
+                handleAddToCart={() => handleAddToCart(card)}
+                handlePressCard={() => handlePressCard(card)}
+              />
+            ))}
+          </div>
+        )}
+      </div>
 
 
       <div className="bg-gray-100 text-black p-6 md:p-10 mt-10 rounded-lg">

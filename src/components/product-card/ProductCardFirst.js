@@ -11,14 +11,17 @@ export const ProductCardFirst = ({
     productDetails = {},
     onBuyNow,
     productId,
+    handleAddToCart,
+    handlePressCard,
     
 }) => {
-    const router = useRouter();
+    // const router = useRouter();
 
-    const handleAddToCart = () => {
-        router.push('/product-details');
-        toast.success("Added to cart!");
-    };
+    // const handleAddToCart = () => {
+    //     router.push('/product-details');
+    //     toast.success("Added to cart!");
+    // };
+
     const labels = {
         Roof_area_required: "Roof Area Required",
         Annual_energy_generation: "Annual Energy Generation",
@@ -29,7 +32,7 @@ export const ProductCardFirst = ({
     };
 
     return (
-        <div className="w-[320px] bg-white rounded-xl shadow-lg p-6" key={productId}>
+        <div className="w-[320px] bg-white rounded-xl shadow-lg p-6" key={productId} onClick={handlePressCard}>
             <h2 className="text-xl font-bold text-[#00237D] text-center mb-4">
                 {title}
             </h2>

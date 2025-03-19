@@ -1,6 +1,7 @@
 "use client";
+import { API } from "@/utils";
 import { useRouter } from "next/navigation";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 
 const productsData = [
   { id: "1", name: "Product 1", price: "$20", image: "https://via.placeholder.com/100" },
@@ -11,13 +12,53 @@ const productsData = [
 const CartPage = () => {
   const [products, setProducts] = useState(productsData);
   const router = useRouter();
+  const [loading, setLoading] = useState(false);
+  const [cartList, setCartList] = useState(null);
 
+  const getCartListing = async () => {
+    try {
+      setLoading(true);
+      const userSession = localStorage.getItem("userSession");
+      const parsedSession = userSession ? JSON.parse(userSession) : null;
+      const accessToken = parsedSession?.access_token; // Extract the access_token
+      if (!accessToken) {
+        throw new Error("Access token not found");
+      }
+      const response = await API.get("/cart/Get-user-cart", {
+        headers: {
+          Authorization: `Bearer ${accessToken}`,
+        },
+      });
+
+      if (response.status === 200) {
+        setCartList(response.data);
+      } else {
+        console.error("Error fetching products:", response);
+        toast.error(response?.data?.error || "Failed to fetch products.");
+        return [];
+      }
+    } catch (error) {
+      console.error("API Error:", error);
+      toast.error("An error occurred while fetching products.");
+      return [];
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    getCartListing();
+  }, []);
+
+  console.log('================', cartList);
+
+  
   const removeItem = (id) => {
     setProducts(products.filter((product) => product.id !== id));
   };
   const handleAddToCart = () => {
     router.push('/product-details');
-};
+  };
 
 
   return (

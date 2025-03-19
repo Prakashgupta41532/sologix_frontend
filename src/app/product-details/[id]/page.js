@@ -1,22 +1,49 @@
 "use client"
 import { Button } from "@nextui-org/react";
 import Image from "next/image";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import SuccessModal from "@/components/Modals/SuccessModal";
 import FailureModal from "@/components/Modals/FailureModal";
+import { API } from "@/utils";
+import { toast } from "sonner";
+import { useParams } from "next/navigation";
+import productThree from "../../../../public/product-three.png"
+import gridsolor from "../../../../public/product-one.png";
 
 const ProductDetails = () => {
+    const { id } = useParams();
+
     const [quantity, setQuantity] = useState(1);
     const [isModalOpen, setIsModalOpen] = useState(false);
+    const [loading, setLoading] = useState(false);
+    const [getProduct, setGetProduct] = useState(null);
 
-    const specifications = [
-        { label: "Roof Area Required", value: "20 Sqm" },
-        { label: "Annual Energy Generation", value: "3,700 Units" },
-        { label: "Cost to Consumer", value: "54,000 Rs." },
-        { label: "Annual Saving", value: "7,000 Rs." },
-        { label: "System Life", value: "25 Years" },
-        { label: "Payback Period", value: "4 Years" }
-    ];
+    const getSingleProduct = async () => {
+        if (!id) return;
+        try {
+            setLoading(true);
+            const response = await API.get(`/products/Get-single-product?id=${id}`);
+
+            if (response.status === 200) {
+                setGetProduct(response.data.data);
+            } else {
+                console.error("Error fetching products:", response);
+                toast.error(response?.data?.error || "Failed to fetch products.");
+                return [];
+            }
+        } catch (error) {
+            console.error("API Error:", error);
+            toast.error("An error occurred while fetching products.");
+            return [];
+        } finally {
+            setLoading(false);
+        }
+    };
+
+    useEffect(() => {
+        if (id) getSingleProduct();
+    }, [id]);
+
 
     const handleIncrement = () => {
         setQuantity(prev => prev + 1);
@@ -27,14 +54,34 @@ const ProductDetails = () => {
             setQuantity(prev => prev - 1);
         }
     };
-
+    const labels = {
+        Roof_area_required: "Roof Area Required",
+        Annual_energy_generation: "Annual Energy Generation",
+        Cost_to_consumer: "Cost to Consumer",
+        Annual_saving: "Annual Saving",
+        System_life: "System Life",
+        Payback_period: "Payback Period",
+    };
+    if (loading)
+        return (
+          <div className="flex items-center justify-center h-40">
+            <p className="text-lg font-medium text-gray-500 animate-pulse">Loading...</p>
+          </div>
+        );
+      
+      if (!getProduct)
+        return (
+          <div className="flex items-center justify-center h-40">
+            <p className="text-lg font-medium text-red-500">No product found.</p>
+          </div>
+        );
     return (
         <div className="max-w-7xl mx-auto p-4 md:p-8">
             <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
                 {/* Product Image */}
                 <div className="bg-white rounded-xl p-6 shadow-lg">
                     <Image
-                        src="/product-one.png"
+                        src={getProduct.system == "On-Grid Solar System" ? gridsolor : productThree}
                         alt="On-Grid Solar System"
                         width={400}
                         height={400}
@@ -45,21 +92,17 @@ const ProductDetails = () => {
                 {/* Product Details */}
                 <div className="bg-white rounded-xl p-6 shadow-lg">
                     <h1 className="text-2xl font-bold text-[#00237D] mb-4">
-                        On-Grid Solar System
+                        {getProduct.system}
                     </h1>
                     <p className="text-gray-600 mb-6">
-                        2KW suitable for small homes (2-3 Rooms)
+                        {getProduct.product_description}
                     </p>
 
                     <div className="border rounded-lg overflow-hidden mb-6">
-                        {specifications.map((spec, index) => (
-                            <div key={index} className={`flex ${index !== specifications.length - 1 ? 'border-b' : ''}`}>
-                                <div className="flex-1 p-3 bg-gray-50 border-r text-sm">
-                                    {spec.label}
-                                </div>
-                                <div className="flex-1 p-3 text-sm text-right">
-                                    {spec.value}
-                                </div>
+                        {Object.entries(labels).map(([key, label], index) => (
+                            <div key={key} className={`flex ${index !== Object.keys(labels).length - 1 ? "border-b" : ""}`}>
+                                <div className="flex-1 p-2 bg-gray-50 border-r text-sm">{label}</div>
+                                <div className="flex-1 p-2 text-sm text-right">{getProduct.product_details[key]}</div>
                             </div>
                         ))}
                     </div>
@@ -99,7 +142,7 @@ const ProductDetails = () => {
                 isOpen={isModalOpen}
                 onClose={() => setIsModalOpen(false)}
             /> */}
-            <SuccessModal 
+            <SuccessModal
                 isOpen={isModalOpen}
                 onClose={() => setIsModalOpen(false)}
             />
