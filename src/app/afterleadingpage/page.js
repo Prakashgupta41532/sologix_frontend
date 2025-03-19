@@ -1,5 +1,5 @@
 "use client";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Button, Card } from "@nextui-org/react";
 import Image from "next/image";
 import { useSelector } from "react-redux";
@@ -19,46 +19,33 @@ import { ProductCardThird } from "@/components/product-card/ProductCardThird";
 export const AfterLeadingPage = () => {
   const session = useSelector((state) => state.session);
 
-  const [showAll, setShowAll] = useState(false);
+  const [loading, setLoading] = useState(false);
+  const [productList, setProductList] = useState(null);
 
-  const cards = [
-    {
-      id: 1,
-      title: "On-Grid Solar System",
-      logo: logo4,
-      option: "2 KW for homes (2- 3) Rooms ",
-      totalAmount: "5000",
-    },
-    {
-      id: 2,
-      title: "On-Grid Solar System",
-      logo: logo4,
-      totalAmount: "6000",
-      option: "2 KW for homes (2- 3) Rooms ",
-    },
-    {
-      id: 3,
-      title: "On-Grid Solar System",
-      logo: logo4,
-      totalAmount: "7000",
-      option: "2 KW for homes (2- 3) Rooms ",
-    },
-    {
-      id: 4,
-      title: "On-Grid Solar System",
-      logo: logo4,
-      totalAmount: "8000",
-      option: "2 KW for homes (2- 3) Rooms ",
-    },
-    {
-      id: 5,
-      title: "On-Grid Solar System",
-      logo: logo4,
-      totalAmount: "15000",
-      option: "2 KW for homes (2- 3) Rooms ",
-    },
-    
-  ];
+  const getProductsList = async () => {
+    try {
+      setLoading(true);
+      const response = await API.get("/products/Get-products");
+  
+      if (response.status === 200) {
+          setProductList(response.data.data);
+      } else {
+        console.error("Error fetching products:", response);
+        toast.error(response?.data?.error || "Failed to fetch products.");
+        return [];
+      }
+    } catch (error) {
+      console.error("API Error:", error);
+      toast.error("An error occurred while fetching products.");
+      return [];
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  useEffect(() => {
+      getProductsList();
+  }, []);
 
   const handelPurchase = async (card) => {
     const perInstallments = Math.ceil(card.totalAmount / 4);
@@ -183,14 +170,47 @@ export const AfterLeadingPage = () => {
           </Card>
         ))}
       </div> */}
-      {/* <div className="flex flex-row gap-5 p-4 md:p-8"> */}
-      <div className="max-w-7xl mx-auto">
+      
+      {/* <div className="max-w-7xl mx-auto">
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 xl:grid-cols-3 gap-5 p-4 md:p-8 justify-items-center">
-          <ProductCardFirst />
-          <ProductCardSecond />
-          <ProductCardThird />
+          {produtList?.map((card) => (
+            <ProductCardFirst 
+              key={card.id}
+              title={card.system}
+              imageSrc={card.imageSrc}
+              description={card.product_description}
+              productDetails={card.product_details}
+              onBuyNow={() => handelPurchase(card)}
+              onAddToCart={() => handleAddToCart(card)}
+              productId={card.id}
+            />
+          ))}
         </div>
-      </div>
+      </div> */}
+
+<div className="max-w-7xl mx-auto">
+      {loading ? (
+        <div className="flex justify-center items-center h-64">
+          <div className="w-10 h-10 border-4 border-gray-300 border-t-blue-500 rounded-full animate-spin"></div>
+        </div>
+      ) : (
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 xl:grid-cols-3 gap-5 p-4 md:p-8 justify-items-center">
+          {productList?.map((card) => (
+            <ProductCardFirst
+              key={card._id}
+              title={card.system}
+              imageSrc={card.imageSrc}
+              description={card.product_description}
+              productDetails={card.product_details}
+              onBuyNow={() => handlePurchase(card)}
+              onAddToCart={() => handleAddToCart(card)}
+              productId={card._id}
+            />
+          ))}
+        </div>
+      )}
+    </div>
+
 
       <div className="bg-gray-100 text-black p-6 md:p-10 mt-10 rounded-lg">
         <h2 className="text-2xl md:text-3xl font-bold text-center mb-6 md:mb-10">
