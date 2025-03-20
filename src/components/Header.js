@@ -18,11 +18,13 @@ import { loadSessionFromLocal, logout } from "@/redux/action";
 import React, { useEffect, useState } from "react";
 import { Dropdown, Space } from "antd";
 import { API } from "@/utils";
+import { useRouter } from "next/navigation";
 
 const Header = () => {
   const { isLoading, userSession } = useSelector((state) => state.session);
   const dispatch = useDispatch();
   const [loading, setLoading] = useState(false);
+  const router = useRouter();
 
   const [cartList, setCartList] = useState(null);
 
@@ -82,6 +84,11 @@ const Header = () => {
     { name: "Contact Us", route: "/contactus" },
     { name: "Login", route: "/login" },
   ];
+  const handleClickLogout = () => {
+    dispatch(logout());
+    localStorage.removeItem("userSession");
+    router.push("/");
+  };
 
   const dropdownItems =
     userSession?.role === "Customer"
@@ -92,7 +99,7 @@ const Header = () => {
         },
         {
           key: "2",
-          label: <button onClick={() => dispatch(logout())}>Logout</button>,
+          label: <button onClick={handleClickLogout}>Logout</button>,
         },
       ]
       : [

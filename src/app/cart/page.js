@@ -64,7 +64,7 @@ const CartPage = () => {
           <div className="flex justify-center items-center h-64">
             <div className="w-10 h-10 border-4 border-gray-300 border-t-blue-500 rounded-full animate-spin"></div>
           </div>
-        ) : cartList !== null ? (
+        ) : cartList?.length > 0 ? (
           cartList.map((item) => (
             <div key={item._id} className="flex items-center border-b py-4 cursor-pointer" onClick={() => handleAddToCart(item)}>
               <Image
@@ -88,8 +88,15 @@ const CartPage = () => {
             </div>
           ))
         ) : (
-          <p className="text-center text-gray-600">Your cart is empty.</p>
+          // <p className="text-center text-gray-600">Your cart is empty.</p>
+          <div className="flex flex-col items-center justify-center p-8">
+            <Image src="/shopping.png" alt="Empty Cart" className=" mb-4" width={100} height={100} />
+            <p className="text-2xl md:text-3xl font-bold text-gray-600 text-center">
+              Your Cart is Empty
+            </p>
+          </div>
         )}
+        
 
       </div>
     </div>
