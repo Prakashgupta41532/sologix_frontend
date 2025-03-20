@@ -48,15 +48,16 @@ export const AfterLeadingPage = () => {
   }, []);
 
   const handleAddToCart = async (item) => {
+    const url = `https://sologix-web.onrender.com/v1/cart/Add-to-cart?productId=${item._id}`;
     try {
       setLoading(true);
       const userSession = localStorage.getItem("userSession");
       const parsedSession = userSession ? JSON.parse(userSession) : null;
       const accessToken = parsedSession?.access_token;
-      console.log('+++++++++++++', accessToken);
-      const response = await API.post("/products/Post-products", item,   {
+      
+      const response = await API.get(url, {
         headers: {
-          Authorization: `Bearer ${accessToken}`,
+          "authorization": `token ${accessToken}`,
           "Content-Type": "application/json",
         },
       });

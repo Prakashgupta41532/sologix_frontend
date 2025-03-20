@@ -17,10 +17,47 @@ import { loadSessionFromLocal, logout } from "@/redux/action";
 
 import React, { useEffect, useState } from "react";
 import { Dropdown, Space } from "antd";
+import { API } from "@/utils";
 
 const Header = () => {
   const { isLoading, userSession } = useSelector((state) => state.session);
   const dispatch = useDispatch();
+  const [loading, setLoading] = useState(false);
+
+  const [cartList, setCartList] = useState(null);
+
+  const getCartListing = async () => {
+    try {
+      setLoading(true);
+      const userSession = localStorage.getItem("userSession");
+      const parsedSession = userSession ? JSON.parse(userSession) : null;
+      const accessToken = parsedSession?.access_token; // Extract the access_token
+      if (!accessToken) {
+        throw new Error("Access token not found");
+      }
+      const response = await API.get("/cart/Get-user-cart", {
+        headers: {
+          "authorization": `token ${accessToken}`,
+          "Content-Type": "application/json",
+        },
+      });
+
+      if (response.status === 200) {
+        setCartList(response.data.cart);
+      } else {
+        console.error("Error fetching products:", response);
+        return [];
+      }
+    } catch (error) {
+      console.error("API Error:", error);
+      return [];
+    } finally {
+      setLoading(false);
+    }
+  };
+  useEffect(() => {
+    getCartListing();
+  }, []);
 
   useEffect(() => {
     // Load local storage data into redux on page reload.
@@ -49,25 +86,25 @@ const Header = () => {
   const dropdownItems =
     userSession?.role === "Customer"
       ? [
-          {
-            key: "1",
-            label: <a href="/">Home</a>,
-          },
-          {
-            key: "2",
-            label: <button onClick={() => dispatch(logout())}>Logout</button>,
-          },
-        ]
+        {
+          key: "1",
+          label: <a href="/">Home</a>,
+        },
+        {
+          key: "2",
+          label: <button onClick={() => dispatch(logout())}>Logout</button>,
+        },
+      ]
       : [
-          {
-            key: "1",
-            label: <a href="/admin">Admin</a>,
-          },
-          {
-            key: "2",
-            label: <button onClick={() => dispatch(logout())}>Logout</button>,
-          },
-        ];
+        {
+          key: "1",
+          label: <a href="/admin">Admin</a>,
+        },
+        {
+          key: "2",
+          label: <button onClick={() => dispatch(logout())}>Logout</button>,
+        },
+      ];
 
   return (
     <div className="flex justify-between sticky top-0 z-50">
@@ -148,9 +185,11 @@ const Header = () => {
               <circle cx="20" cy="21" r="1"></circle>
               <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path>
             </svg>
-            <div className="absolute -top-2 -right-2 bg-red-500 text-white text-xs rounded-full w-5 h-5 flex items-center justify-center">
-              3
+            {!loading && (
+              <div className="absolute -top-2 -right-2 bg-red-500 text-white text-xs rounded-full w-5 h-5 flex items-center justify-center">
+              {cartList?.length > 0 ? cartList.length : 0}
             </div>
+            )}
           </a>
         )}
         <NavbarMenu>
@@ -162,8 +201,8 @@ const Header = () => {
                   index === 0
                     ? "warning"
                     : index === menuItems.length - 1
-                    ? "danger"
-                    : "foreground"
+                      ? "danger"
+                      : "foreground"
                 }
                 href={item.route}
                 size="lg"
