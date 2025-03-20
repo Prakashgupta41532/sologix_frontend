@@ -3,7 +3,7 @@ import { API } from "@/utils";
 import { useRouter } from "next/navigation";
 import React, { useEffect, useState } from "react";
 import { toast } from "sonner";
-import { productThree } from "../../../public/product-three.png"
+import productThree from "../../../public/product-three.png"
 import gridsolor from "../../../public/product-one.png";
 import Image from "next/image";
 
