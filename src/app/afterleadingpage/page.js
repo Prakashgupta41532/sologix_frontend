@@ -1,6 +1,6 @@
 "use client";
 import React, { useEffect, useState } from "react";
-import { Button, Card } from "@nextui-org/react";
+import { Button } from "@nextui-org/react";
 import Image from "next/image";
 import { useSelector } from "react-redux";
 import { API } from "@/utils";
@@ -8,9 +8,6 @@ import Rectangle1 from "../../../public/Rectangle 1.png";
 import Rectangle2 from "../../../public/Rectangle 2.png";
 import Rectangle3 from "../../../public/Rectangle 3.png";
 import ServiceImage from "../../../public/service-image.png";
-import logo4 from "../../../public/Group.png";
-import productThree from "../../../public/product-three.png"
-import gridsolor from "../../../public/product-one.png";
 import { message, notification } from "antd";
 import { ProductCardFirst } from "@/components/product-card/ProductCardFirst";
 import { toast } from "sonner";
@@ -54,7 +51,7 @@ export const AfterLeadingPage = () => {
       const userSession = localStorage.getItem("userSession");
       const parsedSession = userSession ? JSON.parse(userSession) : null;
       const accessToken = parsedSession?.access_token;
-      
+
       const response = await API.get(url, {
         headers: {
           "authorization": `token ${accessToken}`,
@@ -62,7 +59,7 @@ export const AfterLeadingPage = () => {
         },
       });
 
-      if (response.status === 201) {
+      if (response.status === 200) {
         toast.success("Product added to cart successfully!");
         router.push('/cart');
       } else {
@@ -228,22 +225,25 @@ export const AfterLeadingPage = () => {
             <div className="w-10 h-10 border-4 border-gray-300 border-t-blue-500 rounded-full animate-spin"></div>
           </div>
         ) : (
-          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 xl:grid-cols-3 gap-5 p-4 md:p-8 justify-items-center">
-            {productList?.map((card) => (
-              <ProductCardFirst
-                key={card._id}
-                title={card.system}
-                imageSrc={card.system == "On-Grid Solar System" ? gridsolor : productThree}
-                description={card.product_description}
-                productDetails={card.product_details}
-                onBuyNow={() => handelPurchase(card)}
-                onAddToCart={() => handleAddToCart(card)}
-                productId={card._id}
-                handleAddToCart={() => handleAddToCart(card)}
-                handlePressCard={() => handlePressCard(card)}
-              />
-            ))}
+          <div className="overflow-x-auto whitespace-nowrap p-4 md:p-8">
+            <div className="flex space-x-5">
+              {productList?.map((card) => (
+                <ProductCardFirst
+                  key={card._id}
+                  title={card.system}
+                  imageSrc={card.system == "On-Grid Solar System" ? "/product-one.png" : "/product-three.png"}
+                  description={card.product_description}
+                  productDetails={card.product_details}
+                  onBuyNow={() => handelPurchase(card)}
+                  onAddToCart={() => handleAddToCart(card)}
+                  productId={card._id}
+                  handleAddToCart={() => handleAddToCart(card)}
+                  handlePressCard={() => handlePressCard(card)}
+                />
+              ))}
+            </div>
           </div>
+
         )}
       </div>
 

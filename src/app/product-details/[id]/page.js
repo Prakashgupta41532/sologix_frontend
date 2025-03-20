@@ -3,12 +3,10 @@ import { Button } from "@nextui-org/react";
 import Image from "next/image";
 import { useEffect, useState } from "react";
 import SuccessModal from "@/components/Modals/SuccessModal";
-import FailureModal from "@/components/Modals/FailureModal";
+// import FailureModal from "@/components/Modals/FailureModal";
 import { API } from "@/utils";
 import { toast } from "sonner";
 import { useParams } from "next/navigation";
-import productThree from "../../../../public/product-three.png"
-import gridsolor from "../../../../public/product-one.png";
 
 const ProductDetails = () => {
     const { id } = useParams();
@@ -81,7 +79,7 @@ const ProductDetails = () => {
                 {/* Product Image */}
                 <div className="bg-white rounded-xl p-6 shadow-lg">
                     <Image
-                        src={getProduct.system == "On-Grid Solar System" ? gridsolor : productThree}
+                        src={getProduct.system == "On-Grid Solar System" ? "/product-one.png" : "/product-three.png"}
                         alt="On-Grid Solar System"
                         width={400}
                         height={400}

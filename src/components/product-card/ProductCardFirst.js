@@ -1,7 +1,5 @@
 import { Button } from "@nextui-org/react";
 import Image from "next/image";
-import { toast } from "sonner";
-import { useRouter } from "next/navigation";
 
 export const ProductCardFirst = ({
     key,
@@ -13,14 +11,9 @@ export const ProductCardFirst = ({
     productId,
     handleAddToCart,
     handlePressCard,
-    
-}) => {
-    // const router = useRouter();
+    showAddToCart = true
 
-    // const handleAddToCart = () => {
-    //     router.push('/product-details');
-    //     toast.success("Added to cart!");
-    // };
+}) => {
 
     const labels = {
         Roof_area_required: "Roof Area Required",
@@ -32,7 +25,7 @@ export const ProductCardFirst = ({
     };
 
     return (
-        <div className="w-[320px] bg-white rounded-xl shadow-lg p-6" key={productId} onClick={handlePressCard}>
+        <div className="w-[320px] bg-white rounded-xl shadow-lg p-6 cursor-pointer" key={productId} onClick={handlePressCard}>
             <h2 className="text-xl font-bold text-[#00237D] text-center mb-4">
                 {title}
             </h2>
@@ -68,14 +61,16 @@ export const ProductCardFirst = ({
                 >
                     Buy Now!
                 </Button>
-                <Button
-                    className="flex-1 border-[#00237D] text-[#00237D]"
-                    variant="bordered"
-                    radius="full"
-                    onPress={handleAddToCart}
-                >
-                    Add to Cart
-                </Button>
+                {showAddToCart && (
+                    <Button
+                        className="flex-1 border-[#00237D] text-[#00237D]"
+                        variant="bordered"
+                        radius="full"
+                        onPress={handleAddToCart}
+                    >
+                        Add to Cart
+                    </Button>
+                )}
             </div>
         </div>
     );

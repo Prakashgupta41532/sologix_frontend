@@ -3,8 +3,6 @@ import { API } from "@/utils";
 import { useRouter } from "next/navigation";
 import React, { useEffect, useState } from "react";
 import { toast } from "sonner";
-import productThree from "../../../public/product-three.png"
-import gridsolor from "../../../public/product-one.png";
 import Image from "next/image";
 
 const CartPage = () => {
@@ -70,8 +68,10 @@ const CartPage = () => {
           cartList.map((item) => (
             <div key={item._id} className="flex items-center border-b py-4 cursor-pointer" onClick={() => handleAddToCart(item)}>
               <Image
-                src={item.system == "On-Grid Solar System" ? gridsolor : productThree}
+                src={item.system == "On-Grid Solar System" ? "/product-one.png" : "/product-three.png"}
                 alt={item.system}
+                width={16}
+                height={16} 
                 className="w-16 h-16 rounded-lg mr-9"
               />
               <div className="flex-1">
