@@ -71,7 +71,7 @@ const CartPage = () => {
         getCartListing(); // Refresh cart list
         if(cartList?.length === 0) {
           toast.info("Your cart is empty.");
-          router.push("/afterleadingpage");
+          router.replace("/afterleadingpage");
         }
       } else {
         console.error("Error removing product:", response);
@@ -115,7 +115,7 @@ const CartPage = () => {
                 <p className="text-gray-600">Annual Savings: ₹{item.product_details.Annual_saving}</p>
               </div>
               <button
-                onClick={() => removeItem(item._id)}
+                onClick={(e) => { e.stopPropagation(); removeItem(item._id) }}
                 className="bg-red-500 text-white px-3 py-1 rounded-md"
               >
                 X
