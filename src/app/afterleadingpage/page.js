@@ -52,7 +52,7 @@ export const AfterLeadingPage = () => {
       const parsedSession = userSession ? JSON.parse(userSession) : null;
       const accessToken = parsedSession?.access_token;
 
-      const response = await API.get(url, {
+      const response = await API.post(url, {},{
         headers: {
           "authorization": `token ${accessToken}`,
           "Content-Type": "application/json",
@@ -61,14 +61,12 @@ export const AfterLeadingPage = () => {
 
       if (response.status === 200) {
         toast.success("Product added to cart successfully!");
-        router.push('/cart');
-      } else {
-        console.error("Error adding product to cart:", response);
-        toast.error(response?.data?.error || "Failed to add product to cart.");
+        router.replace('/cart');
       }
     } catch (error) {
-      console.error("API Error:", error);
-      toast.error("An error occurred while adding product to cart.");
+      const errorMessage = error.response?.data?.error || error.response?.data?.msg || "Failed to add product to cart.";
+
+      toast.error(errorMessage);
     } finally {
       setLoading(false);
     }
