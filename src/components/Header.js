@@ -87,7 +87,7 @@ const Header = () => {
   const handleClickLogout = () => {
     dispatch(logout());
     localStorage.removeItem("userSession");
-    router.push("/");
+    router.replace("/");
   };
 
   const dropdownItems =

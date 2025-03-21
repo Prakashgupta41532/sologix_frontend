@@ -47,13 +47,48 @@ const CartPage = () => {
   }, []);
 
 
-  const removeItem = (id) => {
-    // setProducts(products.filter((product) => product.id !== id));
+
+  const removeItem =  async (productId) => {
+    try {
+      setLoading(true);
+      const userSession = localStorage.getItem("userSession");
+      const parsedSession = userSession ? JSON.parse(userSession) : null;
+      const accessToken = parsedSession?.access_token; // Extract the access_token
+  
+      if (!accessToken) {
+        throw new Error("Access token not found");
+      }
+  
+      const response = await API.delete(`/cart/Remove-from-cart?productId=${productId}`, {
+        headers: {
+          "authorization": `token ${accessToken}`,
+          "Content-Type": "application/json",
+        },
+      });
+  
+      if (response.status === 200) {
+        toast.success("Item removed from cart successfully.");
+        getCartListing(); // Refresh cart list
+        if(cartList?.length === 0) {
+          toast.info("Your cart is empty.");
+          router.push("/afterleadingpage");
+        }
+      } else {
+        console.error("Error removing product:", response);
+        toast.error(response?.data?.error || "Failed to remove product.");
+      }
+    } catch (error) {
+      console.error("API Error:", error);
+      toast.error("An error occurred while removing the product.");
+    } finally {
+      setLoading(false);
+    }
   };
 
   const handleAddToCart = (item) => {
     router.push(`/product-details/${item._id}`);
   }
+
 
 
   return (

@@ -3,8 +3,6 @@ import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import { toast } from "sonner";
 import { useRouter } from "next/router";
-import Image from "next/image";
-import googleicon from "../../../public/google-icon.webp";
 import { API } from "@/utils";
 
 export const LoginForm = () => {
