@@ -1,4 +1,7 @@
+
+"use client";
 import { Button } from "@nextui-org/react";
+import { useRouter } from "next/navigation";
 import Image from "next/image";
 import React from "react";
 import Rectangle1 from "../../../public/Rectangle 1.png";
@@ -6,6 +9,13 @@ import Rectangle2 from "../../../public/Rectangle 2.png";
 import Rectangle3 from "../../../public/Rectangle 3.png";
 
 export const Hero = () => {
+
+  const router = useRouter();
+
+  const handlePressGetAQuote = () => {
+    router.push("/contactus");
+  }
+  
   return (
     <div className="flex flex-col md:flex-row items-center justify-center p-10 w-full bg-white min-h-screen">
       <div className="flex flex-col items-center text-center md:text-left md:items-start max-w-3xl justify-center">
@@ -24,7 +34,7 @@ export const Hero = () => {
           on which we live.”
         </p>
         <div className="flex items-center justify-center mx-auto">
-          <Button className="px-4 py-2 md:px-6 md:py-3 rounded-full shadow-lg border border-[#357CCA] font-bold bg-white">
+          <Button className="px-4 py-2 md:px-6 md:py-3 rounded-full shadow-lg border border-[#357CCA] font-bold bg-white" onPress={() => handlePressGetAQuote()}>
             Get a Quote
           </Button>
         </div>

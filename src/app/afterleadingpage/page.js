@@ -2,19 +2,16 @@
 import React, { useEffect, useState } from "react";
 import { Button } from "@nextui-org/react";
 import Image from "next/image";
-import { useSelector } from "react-redux";
 import { API } from "@/utils";
 import Rectangle1 from "../../../public/Rectangle 1.png";
 import Rectangle2 from "../../../public/Rectangle 2.png";
 import Rectangle3 from "../../../public/Rectangle 3.png";
 import ServiceImage from "../../../public/service-image.png";
-import { message, notification } from "antd";
 import { ProductCardFirst } from "@/components/product-card/ProductCardFirst";
 import { toast } from "sonner";
 import { useRouter } from "next/navigation";
 
 export const AfterLeadingPage = () => {
-  const session = useSelector((state) => state.session);
   const router = useRouter();
   const [loading, setLoading] = useState(false);
   const [productList, setProductList] = useState(null);
@@ -75,43 +72,10 @@ export const AfterLeadingPage = () => {
   const handlePressCard = (item) => {
     router.push(`/product-details/${item._id}`);
   }
-
-  const handelPurchase = async (card) => {
-    const perInstallments = Math.ceil(card.totalAmount / 4);
-    const response = await API.post("/user/purchase", {
-      user: session.userSession.id,
-      productData: card,
-      instamentOne: {
-        amount: perInstallments,
-        status: "pending",
-      },
-      instamentTwo: {
-        amount: perInstallments,
-        status: "pending",
-      },
-      instamentThree: {
-        amount: perInstallments,
-        status: "pending",
-      },
-      instamentFour: {
-        amount: perInstallments,
-        status: "pending",
-      },
-      instamentFive: {
-        amount: perInstallments,
-        status: "pending",
-      },
-    });
-    if (response.status == 200) {
-      notification.success({
-        message: "Purchase Successful",
-        description: "You have successfully made a purchase",
-        type: "success",
-      });
-    } else {
-      message.error(response?.data?.error);
-    }
-  };
+  const handlePressGetAQuote = () => {
+    router.push("/contactus");
+  }
+  
   return (
     <div>
       <div className="flex flex-col md:flex-row items-center justify-center p-10 w-full bg-white min-h-screen">
@@ -131,7 +95,7 @@ export const AfterLeadingPage = () => {
             earth on which we live.”
           </p>
           <div className="flex items-center justify-center mx-auto">
-            <Button className="px-4 py-2 md:px-6 md:py-3 rounded-full shadow-lg border border-[#357CCA] font-bold bg-white">
+            <Button className="px-4 py-2 md:px-6 md:py-3 rounded-full shadow-lg border border-[#357CCA] font-bold bg-white" onClick={() => handlePressGetAQuote()}>
               Get a Quote
             </Button>
           </div>
@@ -232,11 +196,11 @@ export const AfterLeadingPage = () => {
                   imageSrc={card.system == "On-Grid Solar System" ? "/product-one.png" : "/product-three.png"}
                   description={card.product_description}
                   productDetails={card.product_details}
-                  onBuyNow={() => handelPurchase(card)}
+                  onBuyNow={() => handlePressCard(card)}
                   onAddToCart={() => handleAddToCart(card)}
                   productId={card._id}
                   handleAddToCart={() => handleAddToCart(card)}
-                  handlePressCard={() => handlePressCard(card)}
+                  handlePressCard={() => {}}
                 />
               ))}
             </div>

@@ -3,16 +3,21 @@ import { Button } from "@nextui-org/react";
 import Image from "next/image";
 import { useEffect, useState } from "react";
 import SuccessModal from "@/components/Modals/SuccessModal";
-// import FailureModal from "@/components/Modals/FailureModal";
 import { API } from "@/utils";
 import { toast } from "sonner";
 import { useParams } from "next/navigation";
+import { useSelector } from "react-redux";
+import { message } from "antd";
+import FailureModal from "@/components/Modals/FailureModal";
 
 const ProductDetails = () => {
     const { id } = useParams();
+    const session = useSelector((state) => state.session);
 
     const [quantity, setQuantity] = useState(1);
     const [isModalOpen, setIsModalOpen] = useState(false);
+    const [isErrorModalOpen, setIsErrorModalOpen] = useState(false);
+
     const [loading, setLoading] = useState(false);
     const [getProduct, setGetProduct] = useState(null);
 
@@ -60,6 +65,39 @@ const ProductDetails = () => {
         System_life: "System Life",
         Payback_period: "Payback Period",
     };
+    const handelPurchase = async (card) => {
+        const perInstallments = Math.ceil(card.totalAmount / 4);
+        const response = await API.post("/user/purchase", {
+          user: session.userSession.id,
+          productData: card,
+          instamentOne: {
+            amount: perInstallments,
+            status: "pending",
+          },
+          instamentTwo: {
+            amount: perInstallments,
+            status: "pending",
+          },
+          instamentThree: {
+            amount: perInstallments,
+            status: "pending",
+          },
+          instamentFour: {
+            amount: perInstallments,
+            status: "pending",
+          },
+          instamentFive: {
+            amount: perInstallments,
+            status: "pending",
+          },
+        });
+        if (response.status == 200) {
+        setIsModalOpen(true);
+        } else {
+            setIsErrorModalOpen(true);
+          message.error(response?.data?.error);
+        }
+      };
     if (loading)
         return (
           <div className="flex items-center justify-center h-40">
@@ -130,16 +168,16 @@ const ProductDetails = () => {
                     <Button
                         className="w-full bg-[#00237D] text-white rounded-full"
                         size="lg"
-                        onClick={() => setIsModalOpen(true)}
+                        onClick={() => handelPurchase(getProduct)}
                     >
                         Proceed to Checkout
                     </Button>
                 </div>
             </div>
-            {/* <FailureModal
-                isOpen={isModalOpen}
-                onClose={() => setIsModalOpen(false)}
-            /> */}
+            <FailureModal
+                isOpen={isErrorModalOpen}
+                onClose={() => setIsErrorModalOpen(false)}
+            />
             <SuccessModal
                 isOpen={isModalOpen}
                 onClose={() => setIsModalOpen(false)}
