@@ -1,3 +1,4 @@
+"use client"
 import Image from 'next/image'
 import React from 'react'
 import GreenEnergy from '../../../public/A.png'
@@ -6,8 +7,13 @@ import Reduce from '../../../public/Group 8.png'
 import Secure from '../../../public/Vector (2).png'
 import LowMaintenance from '../../../public/Vector (2).png'
 import save from '../../../public/Group (3).png'
+import { useRouter } from 'next/navigation'
  
 export const WhySolar = () => {
+  const router = useRouter();
+  const handlePreebook = () => {
+    router.push("/contactus");
+  }
   return (
     <div>
        <div className="bg-white p-4 md:p-8">
@@ -64,7 +70,7 @@ export const WhySolar = () => {
 
       </div>
       <div className="text-center mt-6 md:mt-8">
-        <button className="px-4 py-2 md:px-6 md:py-3 rounded-full shadow-lg border border-[#357CCA] font-bold">Book a Call!</button>
+        <button className="px-4 py-2 md:px-6 md:py-3 rounded-full shadow-lg border border-[#357CCA] font-bold" onClick={handlePreebook}>Book a Call!</button>
       </div>
     </div>
     </div>

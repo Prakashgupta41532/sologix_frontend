@@ -14,7 +14,6 @@ const ProductDetails = () => {
     const { id } = useParams();
     const session = useSelector((state) => state.session);
 
-    const [quantity, setQuantity] = useState(1);
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [isErrorModalOpen, setIsErrorModalOpen] = useState(false);
 
@@ -48,19 +47,10 @@ const ProductDetails = () => {
     }, [id]);
 
 
-    const handleIncrement = () => {
-        setQuantity(prev => prev + 1);
-    };
-
-    const handleDecrement = () => {
-        if (quantity > 1) {
-            setQuantity(prev => prev - 1);
-        }
-    };
     const labels = {
         Roof_area_required: "Roof Area Required",
         Annual_energy_generation: "Annual Energy Generation",
-        Cost_to_consumer: "Cost to Consumer",
+        // Cost_to_consumer: "Cost to Consumer",
         Annual_saving: "Annual Saving",
         System_life: "System Life",
         Payback_period: "Payback Period",
@@ -127,24 +117,24 @@ const ProductDetails = () => {
 
                 {/* Product Details */}
                 <div className="bg-white rounded-xl p-6 shadow-lg">
-                    <h1 className="text-2xl font-bold text-[#00237D] mb-4">
+                    <h1 className="text-3xl font-bold text-[#00237D] mb-4">
                         {getProduct.system}
                     </h1>
-                    <p className="text-gray-600 mb-6">
+                    <p className="text-gray-600 mb-6 text-md">
                         {getProduct.product_description}
                     </p>
 
                     <div className="border rounded-lg overflow-hidden mb-6">
                         {Object.entries(labels).map(([key, label], index) => (
                             <div key={key} className={`flex ${index !== Object.keys(labels).length - 1 ? "border-b" : ""}`}>
-                                <div className="flex-1 p-2 bg-gray-50 border-r text-sm">{label}</div>
-                                <div className="flex-1 p-2 text-sm text-right">{getProduct.product_details[key]}</div>
+                                <div className="flex-1 p-2 bg-gray-50 border-r text-md">{label}</div>
+                                <div className="flex-1 p-2 text-md text-right font-bold">{getProduct.product_details[key]}</div>
                             </div>
                         ))}
                     </div>
 
                     {/* Quantity Counter */}
-                    <div className="flex items-center gap-4 mb-6">
+                    {/* <div className="flex items-center gap-4 mb-6">
                         <span className="text-gray-700">Quantity:</span>
                         <div className="flex items-center border rounded-lg">
                             <button
@@ -163,14 +153,15 @@ const ProductDetails = () => {
                                 +
                             </button>
                         </div>
-                    </div>
+                    </div> */}
+                    <p className="text-2xl font-semibold mt-4 text-right">Total Cost: <span className="text-green-600"> ₹{getProduct.product_details.Cost_to_consumer}</span></p>
 
                     <Button
-                        className="w-full bg-[#00237D] text-white rounded-full"
+                        className="w-full bg-[#00237D] text-white rounded-full mt-5"
                         size="lg"
                         onClick={() => handelPurchase(getProduct)}
                     >
-                        Proceed to Checkout
+                        Proceed to Checkout (₹{getProduct.product_details.Cost_to_consumer})
                     </Button>
                 </div>
             </div>

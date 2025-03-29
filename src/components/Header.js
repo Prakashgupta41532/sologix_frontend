@@ -75,7 +75,7 @@ const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   const menuItems = [
-    { name: "Home", route: "/" },
+    { name: "Home", route: userSession ? "/afterleadingpage" : "/" },
     { name: "About Us", route: "/aboutus" },
     { name: "For Home", route: "/forhome" },
     { name: "For Business", route: "/solorbusiness" },
