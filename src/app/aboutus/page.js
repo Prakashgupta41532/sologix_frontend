@@ -1,5 +1,5 @@
 "use client";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Image from "next/image";
 import Avatar from "../../../public/Avatar.png";
 import Amitranjan from "../../../public/AmitRanjan.jpg";
@@ -17,11 +17,50 @@ import quete from "../../../public/quete.png";
 import { Button, Form, Input } from "antd";
 import { Checkbox } from "antd";
 import clientImg from "../../../public/chose1 (1).jpg";
+import { API } from "@/utils";
+import './about.css';
 
 const AboutUs = () => {
   const onChange = (e) => {
     console.log(`checked = ${e.target.checked}`);
   };
+  const [loading, setLoading] = useState(false);
+  const [feedbacks, setFeedbacks] = useState([]);
+
+  const getAllFeedbacks = async () => {
+    try {
+      setLoading(true);
+      const userSession = localStorage.getItem("userSession");
+      const parsedSession = userSession ? JSON.parse(userSession) : null;
+      const accessToken = parsedSession?.access_token;
+
+      if (!accessToken) {
+        throw new Error("Access token not found");
+      }
+
+      const response = await API.get("/feedbacks/fetch-All-Feedbacks", {
+        headers: {
+          "authorization": `token ${accessToken}`,
+          "Content-Type": "application/json",
+        },
+      });
+
+      if (response.status === 200) {
+        setFeedbacks(response.data.data);
+      } else {
+        console.error("Error fetching feedbacks:", response);
+      }
+    } catch (error) {
+      console.error("API Error:", error);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    getAllFeedbacks();
+  }, []);
+
 
   const settings = {
     dots: true,
@@ -35,21 +74,7 @@ const AboutUs = () => {
     pagination: null,
   };
 
-  const testimonials = [
-    {
-      clientImg: "../../../public/chose1 (1).jpg",
-      personImg: "../../../public/AmitRanjan.jpg",
-      name: "Sai Ram Prakash",
-      title: "Senior Project Engineer - Jharkhand Government",
-      feedback:
-        "“We got the project delivered on time and going solar was the best decision for us till date!",
-      systemCapacity: "10 KW",
-      systemType: "On-Grid",
-      location: "Jamshedpur-Jharkhand",
-      annualEnergyGeneration: "1,40,000 Units",
-      annualSavings: "Rs. 8,40,000",
-    },
-  ];
+
   return (
     <div className="w-full">
       <h1 className="text-[#344DA3] text-5xl font-bold text-center mt-8">
@@ -290,154 +315,87 @@ const AboutUs = () => {
         <h1 className="font-bold text-3xl text-[#344DA3] text-center mb-8">
           What our Clients Say?
         </h1>
-        <div className="w-[80%] m-auto container  ">
+        {loading ? (
+          <div className="flex justify-center items-center h-64">
+            <div className="w-10 h-10 border-4 border-gray-300 border-t-blue-500 rounded-full animate-spin"></div>
+          </div>
+        ) : (
+        <div className="w-[80%] m-auto container">
           <Slider {...settings}>
-            <div className="flex items-center ">
-              {testimonials.map((testimonial, index) => (
-                <div
-                  key={index}
-                  className="flex items-center justify-center gap-8 border-4 p-4"
-                >
-                  <div>
-                    <Image src={clientImg} alt="Client Image" />
-                  </div>
-                  <div>
-                    <div className="flex items-center gap-5 mt-12">
-                      <Image
-                        src={Avatar}
-                        alt="Person Image"
-                        className="w-12 h-12 border-1 rounded-full"
-                      />
-                      <h1>
-                        <span className="text-[#344DA3] font-semibold">
-                          {testimonial.name}
-                        </span>
-                        <h2>{testimonial.title}</h2>
-                      </h1>
-                    </div>
-                    <p className="mt-8">{testimonial.feedback}</p>
-                    <table className="min-w-[60%] m-auto mt-5 bg-white border text-[#344DA3]">
-                      <tbody>
-                        <tr>
-                          <td className="px-4 py-2 border-[#344DA3] border">
-                            System Capacity
-                          </td>
-                          <td className="px-4 py-2 border-[#344DA3] border">
-                            {testimonial.systemCapacity}
-                          </td>
-                        </tr>
-                        <tr>
-                          <td className="px-4 py-2 border-[#344DA3] border">
-                            System Type
-                          </td>
-                          <td className="px-4 py-2 border-[#344DA3] border">
-                            {testimonial.systemType}
-                          </td>
-                        </tr>
-                        <tr>
-                          <td className="px-4 py-2 border-[#344DA3] border">
-                            Location
-                          </td>
-                          <td className="px-4 py-2 border-[#344DA3] border">
-                            {testimonial.location}
-                          </td>
-                        </tr>
-                        <tr>
-                          <td className="px-4 py-2 border-[#344DA3] border">
-                            Annual Energy Generation
-                          </td>
-                          <td className="px-4 py-2 border-[#344DA3] border">
-                            {testimonial.annualEnergyGeneration}
-                          </td>
-                        </tr>
-                        <tr>
-                          <td className="px-4 py-2 border-[#344DA3] border">
-                            Annual Savings
-                          </td>
-                          <td className="px-4 py-2 border-[#344DA3] border">
-                            {testimonial.annualSavings}
-                          </td>
-                        </tr>
-                      </tbody>
-                    </table>
-                  </div>
+            {feedbacks?.map((testimonial, index) => (
+              <div
+                key={index}
+                className="flex flex-row items-center justify-center gap-8 border-4 p-8 w-full slider_top_container"
+              >
+
+                <div className="flex-shrink-0">
+                  <Image src={clientImg} alt="Client Image" />
                 </div>
-              ))}
-            </div>
-            <div className="flex items-center ">
-              {testimonials.map((testimonial, index) => (
-                <div
-                  key={index}
-                  className="flex items-center justify-center gap-8 border-4 p-4"
-                >
-                  <div>
-                    <Image src={clientImg} alt="Client Image" />
+                <div className="flex flex-col justify-center w-[50%]">
+                <div className="flex items-center gap-5 mt-12">
+                    <Image
+                      src={Avatar}
+                      alt="Person Image"
+                      className="w-12 h-12 border-1 rounded-full"
+                    />
+                    <h1>
+                      <span className="text-[#344DA3] font-semibold">
+                        {testimonial.clientName}
+                      </span>
+                      <h2>{testimonial.designation}</h2>
+                    </h1>
                   </div>
-                  <div>
-                    <div className="flex items-center gap-5 mt-12">
-                      <Image
-                        src={Avatar}
-                        alt="Person Image"
-                        className="w-12 h-12 border-1 rounded-full"
-                      />
-                      <h1>
-                        <span className="text-[#344DA3] font-semibold">
-                          {testimonial.name}
-                        </span>
-                        <h2>{testimonial.title}</h2>
-                      </h1>
-                    </div>
-                    <p className="mt-8">{testimonial.feedback}</p>
-                    <table className="min-w-[60%] m-auto mt-5 bg-white border text-[#344DA3]">
-                      <tbody>
-                        <tr>
-                          <td className="px-4 py-2 border-[#344DA3] border">
-                            System Capacity
-                          </td>
-                          <td className="px-4 py-2 border-[#344DA3] border">
-                            {testimonial.systemCapacity}
-                          </td>
-                        </tr>
-                        <tr>
-                          <td className="px-4 py-2 border-[#344DA3] border">
-                            System Type
-                          </td>
-                          <td className="px-4 py-2 border-[#344DA3] border">
-                            {testimonial.systemType}
-                          </td>
-                        </tr>
-                        <tr>
-                          <td className="px-4 py-2 border-[#344DA3] border">
-                            Location
-                          </td>
-                          <td className="px-4 py-2 border-[#344DA3] border">
-                            {testimonial.location}
-                          </td>
-                        </tr>
-                        <tr>
-                          <td className="px-4 py-2 border-[#344DA3] border">
-                            Annual Energy Generation
-                          </td>
-                          <td className="px-4 py-2 border-[#344DA3] border">
-                            {testimonial.annualEnergyGeneration}
-                          </td>
-                        </tr>
-                        <tr>
-                          <td className="px-4 py-2 border-[#344DA3] border">
-                            Annual Savings
-                          </td>
-                          <td className="px-4 py-2 border-[#344DA3] border">
-                            {testimonial.annualSavings}
-                          </td>
-                        </tr>
-                      </tbody>
-                    </table>
-                  </div>
+                  <p className="mt-8">{testimonial.comment}</p>
+                  <table className="min-w-[60%] m-auto mt-5 bg-white border text-[#344DA3]">
+                    <tbody>
+                      <tr>
+                        <td className="px-4 py-2 border-[#344DA3] border">
+                          System Capacity
+                        </td>
+                        <td className="px-4 py-2 border-[#344DA3] border">
+                          {testimonial.systemCapacity}
+                        </td>
+                      </tr>
+                      <tr>
+                        <td className="px-4 py-2 border-[#344DA3] border">
+                          System Type
+                        </td>
+                        <td className="px-4 py-2 border-[#344DA3] border">
+                          {testimonial.systemType}
+                        </td>
+                      </tr>
+                      <tr>
+                        <td className="px-4 py-2 border-[#344DA3] border">Location</td>
+                        <td className="px-4 py-2 border-[#344DA3] border">
+                          {testimonial.location}
+                        </td>
+                      </tr>
+                      <tr>
+                        <td className="px-4 py-2 border-[#344DA3] border">
+                          Annual Energy Generation
+                        </td>
+                        <td className="px-4 py-2 border-[#344DA3] border">
+                          {testimonial.annual_energy_generation}
+                        </td>
+                      </tr>
+                      <tr>
+                        <td className="px-4 py-2 border-[#344DA3] border">
+                          Annual Savings
+                        </td>
+                        <td className="px-4 py-2 border-[#344DA3] border">
+                          {testimonial.annual_savings}
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
                 </div>
-              ))}
-            </div>
+              </div>
+            ))}
           </Slider>
         </div>
+        )}
+
+
       </div>
     </div>
   );

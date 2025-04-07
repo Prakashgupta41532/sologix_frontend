@@ -1,0 +1,5 @@
+.slider_top_container {
+    display: flex !important;
+    justify-content: center;
+    align-items: center;
+}
