@@ -288,114 +288,78 @@ const AboutUs = () => {
       <div className="flex items-center justify-center flex-col mt-12">
         <h1 className="text-[#344DA3] font-bold text-3xl mb-8">Our Team</h1>
         <div className="flex flex-wrap items-center justify-center gap-8 sm:gap-14">
-          {/* <div className="w-56 border-[#F8A000] to-[#925E00] bg-custom-gradient p-3 rounded-md mb-4 sm:mb-0">
-            <div className="w-full bg-white p-4 rounded-md flex flex-col items-center justify-center ">
-              <Image src={AnilKumar} className="border-1 w-36" />
-              <h1 className="font-bold text-xl">Anil Kumar</h1>
-              <p className="font-bold text-xl">Co-Founder</p>
-              <span className="font-medium text-sm">
-                Littlebit about founders
-              </span>
-            </div>
-          </div> */}
-          <div className="w-56 border-[#F8A000] to-[#925E00] bg-custom-gradient p-3 rounded-md mb-4 sm:mb-0">
-            <div className="w-full bg-white p-4 rounded-md flex flex-col items-center justify-center ">
-              <Image src={Amitranjan} className="border-1 w-36" />
-              <h1 className="font-bold text-xl">Amit Ranjan</h1>
-              <p className="font-bold text-xl">Co-Founder</p>
-              <span className="font-medium text-sm">
-                Littlebit about founders
-              </span>
-            </div>
-          </div>
-        </div>
-      </div>
 
-      <div className="mt-8 w-full mb-5">
-        <h1 className="font-bold text-3xl text-[#344DA3] text-center mb-8">
-          What our Clients Say?
-        </h1>
-        {loading ? (
-          <div className="flex justify-center items-center h-64">
-            <div className="w-10 h-10 border-4 border-gray-300 border-t-blue-500 rounded-full animate-spin"></div>
-          </div>
-        ) : (
-        <div className="w-[80%] m-auto container">
-          <Slider {...settings}>
-            {feedbacks?.map((testimonial, index) => (
-              <div
-                key={index}
-                className="flex flex-row items-center justify-center gap-8 border-4 p-8 w-full slider_top_container"
-              >
+          {loading ? (
+            <div className="flex justify-center items-center h-64">
+              <div className="w-10 h-10 border-4 border-gray-300 border-t-blue-500 rounded-full animate-spin"></div>
+            </div>
+          ) : (
+            <div className="w-[70%] max-w-screen-xl mx-auto container">
+              <Slider {...settings}>
+                {feedbacks?.map((testimonial, index) => (
+                  <div
+                    key={index}
+                    className="flex flex-col md:flex-row items-center justify-center gap-4 md:gap-8 border-4 p-4 md:p-8 w-full slider_top_container"
+                  >
+                    {/* Image Container */}
+                    <div className="flex-shrink-0 mb-4 md:mb-0">
+                      <Image src={clientImg} alt="Client Image" className="w-40 h-auto md:w-48 lg:w-56 xl:w-64" />
+                    </div>
 
-                <div className="flex-shrink-0">
-                  <Image src={clientImg} alt="Client Image" />
-                </div>
-                <div className="flex flex-col justify-center w-[50%]">
-                <div className="flex items-center gap-5 mt-12">
-                    <Image
-                      src={Avatar}
-                      alt="Person Image"
-                      className="w-12 h-12 border-1 rounded-full"
-                    />
-                    <h1>
-                      <span className="text-[#344DA3] font-semibold">
-                        {testimonial.clientName}
-                      </span>
-                      <h2>{testimonial.designation}</h2>
-                    </h1>
+                    {/* Text Content */}
+                    <div className="flex flex-col justify-center w-full md:w-[60%]">
+                      <div className="flex items-center gap-4 mt-4 md:mt-12">
+                        <Image
+                          src={Avatar}
+                          alt="Person Image"
+                          className="w-10 h-10 md:w-12 md:h-12 border rounded-full"
+                        />
+                        <div>
+                          <h1 className="text-[#344DA3] font-semibold text-base md:text-lg">
+                            {testimonial.clientName}
+                          </h1>
+                          <h2 className="text-sm md:text-base">{testimonial.designation}</h2>
+                        </div>
+                      </div>
+
+                      <p className="mt-4 md:mt-8 text-sm md:text-base">
+                        {testimonial.comment}
+                      </p>
+
+                      {/* Table */}
+                      <table className="w-full md:min-w-[60%] mt-5 bg-white border text-[#344DA3] text-xs md:text-sm">
+                        <tbody>
+                          <tr>
+                            <td className="px-3 py-2 border">System Capacity</td>
+                            <td className="px-3 py-2 border">{testimonial.systemCapacity}</td>
+                          </tr>
+                          <tr>
+                            <td className="px-3 py-2 border">System Type</td>
+                            <td className="px-3 py-2 border">{testimonial.systemType}</td>
+                          </tr>
+                          <tr>
+                            <td className="px-3 py-2 border">Location</td>
+                            <td className="px-3 py-2 border">{testimonial.location}</td>
+                          </tr>
+                          <tr>
+                            <td className="px-3 py-2 border">Annual Energy Generation</td>
+                            <td className="px-3 py-2 border">{testimonial.annual_energy_generation}</td>
+                          </tr>
+                          <tr>
+                            <td className="px-3 py-2 border">Annual Savings</td>
+                            <td className="px-3 py-2 border">{testimonial.annual_savings}</td>
+                          </tr>
+                        </tbody>
+                      </table>
+                    </div>
                   </div>
-                  <p className="mt-8">{testimonial.comment}</p>
-                  <table className="min-w-[60%] m-auto mt-5 bg-white border text-[#344DA3]">
-                    <tbody>
-                      <tr>
-                        <td className="px-4 py-2 border-[#344DA3] border">
-                          System Capacity
-                        </td>
-                        <td className="px-4 py-2 border-[#344DA3] border">
-                          {testimonial.systemCapacity}
-                        </td>
-                      </tr>
-                      <tr>
-                        <td className="px-4 py-2 border-[#344DA3] border">
-                          System Type
-                        </td>
-                        <td className="px-4 py-2 border-[#344DA3] border">
-                          {testimonial.systemType}
-                        </td>
-                      </tr>
-                      <tr>
-                        <td className="px-4 py-2 border-[#344DA3] border">Location</td>
-                        <td className="px-4 py-2 border-[#344DA3] border">
-                          {testimonial.location}
-                        </td>
-                      </tr>
-                      <tr>
-                        <td className="px-4 py-2 border-[#344DA3] border">
-                          Annual Energy Generation
-                        </td>
-                        <td className="px-4 py-2 border-[#344DA3] border">
-                          {testimonial.annual_energy_generation}
-                        </td>
-                      </tr>
-                      <tr>
-                        <td className="px-4 py-2 border-[#344DA3] border">
-                          Annual Savings
-                        </td>
-                        <td className="px-4 py-2 border-[#344DA3] border">
-                          {testimonial.annual_savings}
-                        </td>
-                      </tr>
-                    </tbody>
-                  </table>
-                </div>
-              </div>
-            ))}
-          </Slider>
+                ))}
+              </Slider>
+            </div>
+          )}
+
+
         </div>
-        )}
-
-
       </div>
     </div>
   );
