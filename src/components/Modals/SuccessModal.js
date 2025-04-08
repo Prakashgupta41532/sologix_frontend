@@ -1,5 +1,5 @@
 "use client"
-import { Modal, ModalContent, ModalHeader, ModalBody } from "@nextui-org/react";
+import { Modal, ModalContent, ModalHeader, ModalBody, ModalFooter } from "@nextui-org/react";
 
 const SuccessModal = ({ isOpen, onClose }) => {
     return (

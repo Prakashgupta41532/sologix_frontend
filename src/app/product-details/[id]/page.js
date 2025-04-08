@@ -9,6 +9,7 @@ import { useParams } from "next/navigation";
 import { useSelector } from "react-redux";
 import { message } from "antd";
 import FailureModal from "@/components/Modals/FailureModal";
+import Invoice from "@/components/Invoice/Invoice";
 
 const ProductDetails = () => {
     const { id } = useParams();
@@ -16,6 +17,10 @@ const ProductDetails = () => {
 
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [isErrorModalOpen, setIsErrorModalOpen] = useState(false);
+
+    const [showInvoice, setShowInvoice] = useState(false);
+    const [purchaseCompleted, setPurchaseCompleted] = useState(false);
+
 
     const [loading, setLoading] = useState(false);
     const [getProduct, setGetProduct] = useState(null);
@@ -58,49 +63,56 @@ const ProductDetails = () => {
     const handelPurchase = async (card) => {
         const perInstallments = Math.ceil(card.totalAmount / 4);
         const response = await API.post("/user/purchase", {
-          user: session.userSession.id,
-          productData: card,
-          instamentOne: {
-            amount: perInstallments,
-            status: "pending",
-          },
-          instamentTwo: {
-            amount: perInstallments,
-            status: "pending",
-          },
-          instamentThree: {
-            amount: perInstallments,
-            status: "pending",
-          },
-          instamentFour: {
-            amount: perInstallments,
-            status: "pending",
-          },
-          instamentFive: {
-            amount: perInstallments,
-            status: "pending",
-          },
+            user: session.userSession.id,
+            productData: card,
+            instamentOne: {
+                amount: perInstallments,
+                status: "pending",
+            },
+            instamentTwo: {
+                amount: perInstallments,
+                status: "pending",
+            },
+            instamentThree: {
+                amount: perInstallments,
+                status: "pending",
+            },
+            instamentFour: {
+                amount: perInstallments,
+                status: "pending",
+            },
+            instamentFive: {
+                amount: perInstallments,
+                status: "pending",
+            },
         });
         if (response.status == 200) {
-        setIsModalOpen(true);
+            setIsModalOpen(true);
+            setPurchaseCompleted(true);
         } else {
             setIsErrorModalOpen(true);
-          message.error(response?.data?.error);
+            message.error(response?.data?.error);
         }
-      };
+    };
+
+
+
     if (loading)
         return (
-          <div className="flex items-center justify-center h-40">
-            <p className="text-lg font-medium text-gray-500 animate-pulse">Loading...</p>
-          </div>
+            <div className="flex items-center justify-center h-40">
+                <p className="text-lg font-medium text-gray-500 animate-pulse">Loading...</p>
+            </div>
         );
-      
-      if (!getProduct)
+
+    if (!getProduct)
         return (
-          <div className="flex items-center justify-center h-40">
-            <p className="text-lg font-medium text-red-500">No product found.</p>
-          </div>
+            <div className="flex items-center justify-center h-40">
+                <p className="text-lg font-medium text-red-500">No product found.</p>
+            </div>
         );
+    const cost = getProduct?.product_details?.Cost_to_consumer;
+    const tax = cost * 0.18;
+    const total = cost + tax;
     return (
         <div className="max-w-7xl mx-auto p-4 md:p-8">
             <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
@@ -154,16 +166,32 @@ const ProductDetails = () => {
                             </button>
                         </div>
                     </div> */}
-                    <p className="text-2xl font-semibold mt-4 text-right">Total Cost: <span className="text-green-600"> ₹{getProduct.product_details.Cost_to_consumer}</span></p>
+                    <p className="text-md font-medium mt-4 text-right">Subtotal: <span className="text-black-600"> ₹{cost.toFixed(2)}</span></p>
+                    <p className="text-md font-medium mt-1 text-right">Tax (18%): <span className="text-black-600"> ₹{tax.toFixed(2)}</span></p>
+
+                    <p className="text-2xl font-semibold mt-4 text-right">Total Cost: <span className="text-green-600"> ₹{total}</span></p>
 
                     <Button
                         className="w-full bg-[#00237D] text-white rounded-full mt-5"
                         size="lg"
                         onClick={() => handelPurchase(getProduct)}
                     >
-                        Proceed to Checkout (₹{getProduct.product_details.Cost_to_consumer})
+                        Proceed to Checkout (₹{total.toFixed(2)})
                     </Button>
+                    {purchaseCompleted && !isModalOpen && !showInvoice && (
+                        <div className="mt-6 text-center">
+                            <Button
+                                className="bg-white text-[#00237D] border border-[#00237D] rounded-full mt-5"
+                                onClick={() => setShowInvoice(true)}
+                            >
+                                See Invoice
+                            </Button>
+                        </div>
+                    )}
+
+                    {showInvoice && <Invoice crossPress={() => setShowInvoice(false)} price={getProduct.product_details.Cost_to_consumer} />}
                 </div>
+
             </div>
             <FailureModal
                 isOpen={isErrorModalOpen}
