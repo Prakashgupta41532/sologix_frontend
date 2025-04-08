@@ -166,8 +166,8 @@ const ProductDetails = () => {
                             </button>
                         </div>
                     </div> */}
-                    <p className="text-md font-medium mt-4 text-right">Subtotal: <span className="text-black-600"> ₹{cost.toFixed(2)}</span></p>
-                    <p className="text-md font-medium mt-1 text-right">Tax (18%): <span className="text-black-600"> ₹{tax.toFixed(2)}</span></p>
+                    <p className="text-gray-500 text-lg font-medium mt-4 text-right">Subtotal: <span className="text-black"> ₹{cost.toFixed(2)}</span></p>
+                    <p className="text-gray-500 text-lg font-medium mt-1 text-right">Tax (18%): <span className="text-black"> ₹{tax.toFixed(2)}</span></p>
 
                     <p className="text-2xl font-semibold mt-4 text-right">Total Cost: <span className="text-green-600"> ₹{total}</span></p>
 
