@@ -40,10 +40,10 @@ const Invoice = ({ crossPress, price }) => {
                 >
                     X
                 </button>
-                <div ref={invoiceRef} className=' max-w-4xl mx-auto my-10 p-6 bg-white shadow-lg rounded-lg text-sm text-gray-700'>
+                <div ref={invoiceRef} className="w-full sm:max-w-4xl mx-auto my-10 p-4 sm:p-6 bg-white shadow-lg rounded-lg text-sm text-gray-700">
 
 
-                    <div className="flex justify-between items-center border-b pb-4 mb-4">
+                    <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center border-b pb-4 mb-4 gap-4">
                         <Image src="/header_logo.png" alt="Logo"
                             style={{ objectFit: 'contain' }}
                             width={130}
@@ -75,25 +75,26 @@ const Invoice = ({ crossPress, price }) => {
                     </div>
 
                     {/* Product Table */}
-                    <table className="w-full table-auto border-collapse mb-6">
-                        <thead>
-                            <tr className="bg-gray-100 text-left">
-                                <th className="border p-2">#</th>
-                                <th className="border p-2">Product</th>
-                                <th className="border p-2">Qty</th>
-                                <th className="border p-2">Price</th>
-                                {/* <th className="border p-2">Total</th> */}
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td className="border p-2">1</td>
-                                <td className="border p-2">On Grid Solar System</td>
-                                <td className="border p-2">1</td>
-                                <td className="border p-2">₹{price}</td>
-                                {/* <td className="border p-2">₹1000</td> */}
-                            </tr>
-                            {/* <tr>
+                    <div className="overflow-x-auto">
+                        <table className="w-full table-auto border-collapse mb-6">
+                            <thead>
+                                <tr className="bg-gray-100 text-left">
+                                    <th className="border p-2">#</th>
+                                    <th className="border p-2">Product</th>
+                                    <th className="border p-2">Qty</th>
+                                    <th className="border p-2">Price</th>
+                                    {/* <th className="border p-2">Total</th> */}
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td className="border p-2">1</td>
+                                    <td className="border p-2">On Grid Solar System</td>
+                                    <td className="border p-2">1</td>
+                                    <td className="border p-2">₹{price}</td>
+                                    {/* <td className="border p-2">₹1000</td> */}
+                                </tr>
+                                {/* <tr>
             <td className="border p-2">2</td>
             <td className="border p-2">Hybrid Solar System</td>
             <td className="border p-2">1</td>
@@ -101,8 +102,9 @@ const Invoice = ({ crossPress, price }) => {
             <td className="border p-2">18%</td>
             <td className="border p-2">₹2360</td>
           </tr> */}
-                        </tbody>
-                    </table>
+                            </tbody>
+                        </table>
+                    </div>
 
                     {/* Summary */}
                     <div className="flex justify-end">
