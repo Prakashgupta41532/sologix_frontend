@@ -146,17 +146,17 @@ export const Footer = () => {
             >
               amit@sologixenergy.in
             </Link>
-            <Link
+            {/* <Link
               href="mailto:anil@sologixenergy.in"
               className="text-blue-500 hover:underline"
             >
               anil@sologixenergy.in
-            </Link>
+            </Link> */}
           </div>
         </div>
         <div className="flex gap-4">
         <PhoneOutlined />
-          <p className="my-3">+91-8287766474, +91-7838498478</p>
+          <p className="my-3">+91-8287766474</p>
         </div>
       </div>
     </div>
