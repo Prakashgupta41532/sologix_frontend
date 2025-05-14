@@ -76,7 +76,7 @@ const page = () => {
       <br></br>
       <p className="mb-3">
         The orders for the user are shipped through registered domestic courier
-        companies and/or speed post only. Orders are shipped within 90 days from
+        companies and/or speed post only. Orders are delivered within 90 days from
         the date of the order and/or payment or as per the delivery date agreed
         at the time of order confirmation and delivering of the shipment,
         subject to courier company / post office norms. Platform Owner shall not
