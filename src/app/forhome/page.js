@@ -52,7 +52,7 @@ const ForHome = () => {
         </div>
       </div>
 
-      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-5 p-8 md:p-8">
+      {/* <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-5 p-8 md:p-8">
         <Card className="drop-shadow-lg ">
           <div className="flex items-center flex-col mx-auto">
             <h1 className="text-xl font-semibold text-[#00237D] mb-4">
@@ -84,131 +84,7 @@ const ForHome = () => {
             <Button className="mt-5 bg-[#00237D] text-white">Buy Now!</Button>
           </div>
         </Card>
-        <Card className="drop-shadow-lg">
-          <div className="flex items-center flex-col mx-auto">
-            <h1 className="text-xl font-semibold text-[#00237D] mb-4">
-              Hybrid Solar System
-            </h1>
-            <Image src={gridsolor} className="w-16" />
-            <p className="text-center mt-4 mb-5">
-              3kW Suitable for Medium Home (4-5 Rooms)
-            </p>
-            <Select
-              showSearch
-              style={{ width: 200 }}
-              placeholder="Search to Select"
-              optionFilterProp="label"
-              filterSort={(optionA, optionB) =>
-                (optionA?.label ?? "")
-                  .toLowerCase()
-                  .localeCompare((optionB?.label ?? "").toLowerCase())
-              }
-              options={[
-                { value: "30 Sqm", label: "Roof Area Required" },
-                { value: "4,000 Units", label: "Annual Energy Generation" },
-                { value: "81,000 Rs.", label: "Cost to Consumer" },
-                { value: "20,000 Rs.", label: "Annual Saving" },
-                { value: "25 Years", label: "System Life" },
-                { value: "4 Years", label: "Payback Period" },
-              ]}
-            />
-            <Button className="mt-5 bg-[#00237D] text-white">Buy Now!</Button>
-          </div>
-        </Card>
-        <Card className="drop-shadow-lg">
-          <div className="flex items-center flex-col mx-auto">
-            <h1 className="text-xl font-semibold text-[#00237D] mb-4">
-              Hybrid Solar System
-            </h1>
-            <Image src={gridsolor} className="w-16" />
-            <p className="text-center mt-4 mb-5">
-              5kW Suitable for Medium Home (5-6 Rooms)
-            </p>
-            <Select
-              showSearch
-              style={{ width: 200 }}
-              placeholder="Search to Select"
-              optionFilterProp="label"
-              filterSort={(optionA, optionB) =>
-                (optionA?.label ?? "")
-                  .toLowerCase()
-                  .localeCompare((optionB?.label ?? "").toLowerCase())
-              }
-              options={[
-                { value: "50 Sqm", label: "Roof Area Required" },
-                { value: "6,500 Units", label: "Annual Energy Generation" },
-                { value: "1,42,800 Rs.", label: "Cost to Consumer" },
-                { value: "32,500 Rs.", label: "Annual Saving" },
-                { value: "25 Years", label: "System Life" },
-                { value: "4 Years", label: "Payback Period" },
-              ]}
-            />
-            <Button className="mt-5 bg-[#00237D] text-white">Buy Now!</Button>
-          </div>
-        </Card>
-        <Card className="drop-shadow-lg">
-          <div className="flex items-center flex-col mx-auto">
-            <h1 className="text-xl font-semibold text-[#00237D] mb-4">
-              Hybrid Solar System
-            </h1>
-            <Image src={gridsolor} className="w-16" />
-            <p className="text-center mt-4 mb-5">
-              7kW Suitable for Large Home (7-8 Rooms)
-            </p>
-            <Select
-              showSearch
-              style={{ width: 200 }}
-              placeholder="Search to Select"
-              optionFilterProp="label"
-              filterSort={(optionA, optionB) =>
-                (optionA?.label ?? "")
-                  .toLowerCase()
-                  .localeCompare((optionB?.label ?? "").toLowerCase())
-              }
-              options={[
-                { value: "70 Sqm", label: "Roof Area Required" },
-                { value: "	8,000 Units", label: "Annual Energy Generation" },
-                { value: "2,10,000 Rs.", label: "Cost to Consumer" },
-                { value: "40,000 Rs.", label: "Annual Saving" },
-                { value: "25 Years", label: "System Life" },
-                { value: "4 Years", label: "Payback Period" },
-              ]}
-            />
-            <Button className="mt-5 bg-[#00237D] text-white">Buy Now!</Button>
-          </div>
-        </Card>
-        <Card className="drop-shadow-lg">
-          <div className="flex items-center flex-col mx-auto">
-            <h1 className="text-xl font-semibold text-[#00237D] mb-4">
-              Hybrid Solar System
-            </h1>
-            <Image src={gridsolor} className="w-16" />
-            <p className="text-center mt-4 mb-5">
-              10kW Suitable for Large Home (8-9 Rooms)
-            </p>
-            <Select
-              showSearch
-              style={{ width: 200 }}
-              placeholder="Search to Select"
-              optionFilterProp="label"
-              filterSort={(optionA, optionB) =>
-                (optionA?.label ?? "")
-                  .toLowerCase()
-                  .localeCompare((optionB?.label ?? "").toLowerCase())
-              }
-              options={[
-                { value: "	100 Sqm", label: "Roof Area Required" },
-                { value: "	13,500 Units", label: "Annual Energy Generation" },
-                { value: "	3,10,800 Rs.", label: "Cost to Consumer" },
-                { value: "	67,500 Rs.", label: "Annual Saving" },
-                { value: "25 Years", label: "System Life" },
-                { value: "4 Years", label: "Payback Period" },
-              ]}
-            />
-            <Button className="mt-5 bg-[#00237D] text-white">Buy Now!</Button>
-          </div>
-        </Card>
-      </div>
+      </div> */}
 
       <div className="flex flex-col md:flex-row justify-center items-center mt-5 p-8 ">
         <div className="w-full md:w-1/2 md:pl-8">
@@ -232,7 +108,7 @@ const ForHome = () => {
         </div>
       </div>
 
-      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-5 p-8 md:p-8">
+      {/* <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-5 p-8 md:p-8">
         <Card className="drop-shadow-lg ">
           <div className="flex items-center flex-col mx-auto">
             <h1 className="text-xl font-semibold text-[#00237D] mb-4">
@@ -264,131 +140,8 @@ const ForHome = () => {
             <Button className="mt-5 bg-[#00237D] text-white">Buy Now!</Button>
           </div>
         </Card>
-        <Card className="drop-shadow-lg">
-          <div className="flex items-center flex-col mx-auto">
-            <h1 className="text-xl font-semibold text-[#00237D] mb-4">
-              Hybrid Solar System
-            </h1>
-            <Image src={gridsolor} className="w-16" />
-            <p className="text-center mt-4 mb-5">
-              3kW Suitable for Medium Home (4-5 Rooms)
-            </p>
-            <Select
-              showSearch
-              style={{ width: 200 }}
-              placeholder="Search to Select"
-              optionFilterProp="label"
-              filterSort={(optionA, optionB) =>
-                (optionA?.label ?? "")
-                  .toLowerCase()
-                  .localeCompare((optionB?.label ?? "").toLowerCase())
-              }
-              options={[
-                { value: "30 Sqm", label: "Roof Area Required" },
-                { value: "4,000 Units", label: "Annual Energy Generation" },
-                { value: "81,000 Rs.", label: "Cost to Consumer" },
-                { value: "20,000 Rs.", label: "Annual Saving" },
-                { value: "25 Years", label: "System Life" },
-                { value: "4 Years", label: "Payback Period" },
-              ]}
-            />
-            <Button className="mt-5 bg-[#00237D] text-white">Buy Now!</Button>
-          </div>
-        </Card>
-        <Card className="drop-shadow-lg">
-          <div className="flex items-center flex-col mx-auto">
-            <h1 className="text-xl font-semibold text-[#00237D] mb-4">
-              Hybrid Solar System
-            </h1>
-            <Image src={gridsolor} className="w-16" />
-            <p className="text-center mt-4 mb-5">
-              5kW Suitable for Medium Home (5-6 Rooms)
-            </p>
-            <Select
-              showSearch
-              style={{ width: 200 }}
-              placeholder="Search to Select"
-              optionFilterProp="label"
-              filterSort={(optionA, optionB) =>
-                (optionA?.label ?? "")
-                  .toLowerCase()
-                  .localeCompare((optionB?.label ?? "").toLowerCase())
-              }
-              options={[
-                { value: "50 Sqm", label: "Roof Area Required" },
-                { value: "6,500 Units", label: "Annual Energy Generation" },
-                { value: "1,42,800 Rs.", label: "Cost to Consumer" },
-                { value: "32,500 Rs.", label: "Annual Saving" },
-                { value: "25 Years", label: "System Life" },
-                { value: "4 Years", label: "Payback Period" },
-              ]}
-            />
-            <Button className="mt-5 bg-[#00237D] text-white">Buy Now!</Button>
-          </div>
-        </Card>
-        <Card className="drop-shadow-lg">
-          <div className="flex items-center flex-col mx-auto">
-            <h1 className="text-xl font-semibold text-[#00237D] mb-4">
-              Hybrid Solar System
-            </h1>
-            <Image src={gridsolor} className="w-16" />
-            <p className="text-center mt-4 mb-5">
-              7kW Suitable for Large Home (7-8 Rooms)
-            </p>
-            <Select
-              showSearch
-              style={{ width: 200 }}
-              placeholder="Search to Select"
-              optionFilterProp="label"
-              filterSort={(optionA, optionB) =>
-                (optionA?.label ?? "")
-                  .toLowerCase()
-                  .localeCompare((optionB?.label ?? "").toLowerCase())
-              }
-              options={[
-                { value: "70 Sqm", label: "Roof Area Required" },
-                { value: "	8,000 Units", label: "Annual Energy Generation" },
-                { value: "2,10,000 Rs.", label: "Cost to Consumer" },
-                { value: "40,000 Rs.", label: "Annual Saving" },
-                { value: "25 Years", label: "System Life" },
-                { value: "4 Years", label: "Payback Period" },
-              ]}
-            />
-            <Button className="mt-5 bg-[#00237D] text-white">Buy Now!</Button>
-          </div>
-        </Card>
-        <Card className="drop-shadow-lg">
-          <div className="flex items-center flex-col mx-auto">
-            <h1 className="text-xl font-semibold text-[#00237D] mb-4">
-              Hybrid Solar System
-            </h1>
-            <Image src={gridsolor} className="w-16" />
-            <p className="text-center mt-4 mb-5">
-              10kW Suitable for Large Home (8-9 Rooms)
-            </p>
-            <Select
-              showSearch
-              style={{ width: 200 }}
-              placeholder="Search to Select"
-              optionFilterProp="label"
-              filterSort={(optionA, optionB) =>
-                (optionA?.label ?? "")
-                  .toLowerCase()
-                  .localeCompare((optionB?.label ?? "").toLowerCase())
-              }
-              options={[
-                { value: "	100 Sqm", label: "Roof Area Required" },
-                { value: "	13,500 Units", label: "Annual Energy Generation" },
-                { value: "	3,10,800 Rs.", label: "Cost to Consumer" },
-                { value: "	67,500 Rs.", label: "Annual Saving" },
-                { value: "25 Years", label: "System Life" },
-                { value: "4 Years", label: "Payback Period" },
-              ]}
-            />
-            <Button className="mt-5 bg-[#00237D] text-white">Buy Now!</Button>
-          </div>
-        </Card>
-      </div>
+        
+      </div> */}
 
       <div className="flex flex-col md:flex-row justify-center items-center mt-5 p-8">
         <div className="w-full md:w-1/2 md:pl-8">
@@ -412,8 +165,8 @@ const ForHome = () => {
         </div>
       </div>
 
-      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-5 p-8 md:p-8">
-        <Card className="drop-shadow-lg ">
+      {/* <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-5 p-8 md:p-8"> */}
+        {/* <Card className="drop-shadow-lg ">
           <div className="flex items-center flex-col mx-auto">
             <h1 className="text-xl font-semibold text-[#00237D] mb-4">
               Hybrid Solar System
@@ -443,132 +196,11 @@ const ForHome = () => {
             />
             <Button className="mt-5 bg-[#00237D] text-white">Buy Now!</Button>
           </div>
-        </Card>
-        <Card className="drop-shadow-lg">
-          <div className="flex items-center flex-col mx-auto">
-            <h1 className="text-xl font-semibold text-[#00237D] mb-4">
-              Hybrid Solar System
-            </h1>
-            <Image src={gridsolor} className="w-16" />
-            <p className="text-center mt-4 mb-5">
-              3kW Suitable for Medium Home (4-5 Rooms)
-            </p>
-            <Select
-              showSearch
-              style={{ width: 200 }}
-              placeholder="Search to Select"
-              optionFilterProp="label"
-              filterSort={(optionA, optionB) =>
-                (optionA?.label ?? "")
-                  .toLowerCase()
-                  .localeCompare((optionB?.label ?? "").toLowerCase())
-              }
-              options={[
-                { value: "30 Sqm", label: "Roof Area Required" },
-                { value: "4,000 Units", label: "Annual Energy Generation" },
-                { value: "81,000 Rs.", label: "Cost to Consumer" },
-                { value: "20,000 Rs.", label: "Annual Saving" },
-                { value: "25 Years", label: "System Life" },
-                { value: "4 Years", label: "Payback Period" },
-              ]}
-            />
-            <Button className="mt-5 bg-[#00237D] text-white">Buy Now!</Button>
-          </div>
-        </Card>
-        <Card className="drop-shadow-lg">
-          <div className="flex items-center flex-col mx-auto">
-            <h1 className="text-xl font-semibold text-[#00237D] mb-4">
-              Hybrid Solar System
-            </h1>
-            <Image src={gridsolor} className="w-16" />
-            <p className="text-center mt-4 mb-5">
-              5kW Suitable for Medium Home (5-6 Rooms)
-            </p>
-            <Select
-              showSearch
-              style={{ width: 200 }}
-              placeholder="Search to Select"
-              optionFilterProp="label"
-              filterSort={(optionA, optionB) =>
-                (optionA?.label ?? "")
-                  .toLowerCase()
-                  .localeCompare((optionB?.label ?? "").toLowerCase())
-              }
-              options={[
-                { value: "50 Sqm", label: "Roof Area Required" },
-                { value: "6,500 Units", label: "Annual Energy Generation" },
-                { value: "1,42,800 Rs.", label: "Cost to Consumer" },
-                { value: "32,500 Rs.", label: "Annual Saving" },
-                { value: "25 Years", label: "System Life" },
-                { value: "4 Years", label: "Payback Period" },
-              ]}
-            />
-            <Button className="mt-5 bg-[#00237D] text-white">Buy Now!</Button>
-          </div>
-        </Card>
-        <Card className="drop-shadow-lg">
-          <div className="flex items-center flex-col mx-auto">
-            <h1 className="text-xl font-semibold text-[#00237D] mb-4">
-              Hybrid Solar System
-            </h1>
-            <Image src={gridsolor} className="w-16" />
-            <p className="text-center mt-4 mb-5">
-              7kW Suitable for Large Home (7-8 Rooms)
-            </p>
-            <Select
-              showSearch
-              style={{ width: 200 }}
-              placeholder="Search to Select"
-              optionFilterProp="label"
-              filterSort={(optionA, optionB) =>
-                (optionA?.label ?? "")
-                  .toLowerCase()
-                  .localeCompare((optionB?.label ?? "").toLowerCase())
-              }
-              options={[
-                { value: "70 Sqm", label: "Roof Area Required" },
-                { value: "	8,000 Units", label: "Annual Energy Generation" },
-                { value: "2,10,000 Rs.", label: "Cost to Consumer" },
-                { value: "40,000 Rs.", label: "Annual Saving" },
-                { value: "25 Years", label: "System Life" },
-                { value: "4 Years", label: "Payback Period" },
-              ]}
-            />
-            <Button className="mt-5 bg-[#00237D] text-white">Buy Now!</Button>
-          </div>
-        </Card>
-        <Card className="drop-shadow-lg">
-          <div className="flex items-center flex-col mx-auto">
-            <h1 className="text-xl font-semibold text-[#00237D] mb-4">
-              Hybrid Solar System
-            </h1>
-            <Image src={gridsolor} className="w-16" />
-            <p className="text-center mt-4 mb-5">
-              10kW Suitable for Large Home (8-9 Rooms)
-            </p>
-            <Select
-              showSearch
-              style={{ width: 200 }}
-              placeholder="Search to Select"
-              optionFilterProp="label"
-              filterSort={(optionA, optionB) =>
-                (optionA?.label ?? "")
-                  .toLowerCase()
-                  .localeCompare((optionB?.label ?? "").toLowerCase())
-              }
-              options={[
-                { value: "	100 Sqm", label: "Roof Area Required" },
-                { value: "	13,500 Units", label: "Annual Energy Generation" },
-                { value: "	3,10,800 Rs.", label: "Cost to Consumer" },
-                { value: "	67,500 Rs.", label: "Annual Saving" },
-                { value: "25 Years", label: "System Life" },
-                { value: "4 Years", label: "Payback Period" },
-              ]}
-            />
-            <Button className="mt-5 bg-[#00237D] text-white">Buy Now!</Button>
-          </div>
-        </Card>
-      </div>
+        </Card> */}
+       
+        
+        
+      {/* </div> */}
     </div>
   );
 };

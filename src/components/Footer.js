@@ -107,7 +107,7 @@ export const Footer = () => {
           </li>
         </ul>
       </div>
-      <div className="flex-1 mb-6 md:mb-0">
+      {/* <div className="flex-1 mb-6 md:mb-0">
         <h3 className="text-lg font-bold mb-2">Follow Us</h3>
         <div className="flex space-x-4">
           <a href="#">
@@ -120,7 +120,7 @@ export const Footer = () => {
             <Image src={insta} alt="Instagram" className="w-8" />
           </a>
         </div>
-      </div>
+      </div> */}
       <div className="flex-1">
         <h3 className="text-lg font-bold mb-2">Contact Us</h3>
         <div className="flex  gap-4">
