@@ -4,6 +4,7 @@ import { useRouter } from "next/navigation";
 import React, { useEffect, useState } from "react";
 import { toast } from "sonner";
 import Image from "next/image";
+import RazorpayCheckout from "@/components/Payments/RazorpayCheckout";
 
 const CartPage = () => {
   const router = useRouter();
@@ -85,8 +86,24 @@ const CartPage = () => {
     0
   ) || 0;
 
-  const handleBooking = () => {
+  const [paymentSuccess, setPaymentSuccess] = useState(false);
+  const [paymentLoading, setPaymentLoading] = useState(false);
+
+  const handlePaymentSuccess = (paymentData) => {
     toast.success("Booking successful with an amount of ₹2000!");
+    setPaymentSuccess(true);
+    // You can redirect to a success page or show a success modal
+    // router.push('/booking-success');
+  };
+
+  const handlePaymentError = (error) => {
+    toast.error(error?.message || "Payment failed. Please try again.");
+    setPaymentLoading(false);
+  };
+
+  const handleBooking = () => {
+    setPaymentLoading(true);
+    // This function is now handled by the RazorpayCheckout component
   };
 
   return (
@@ -180,13 +197,45 @@ const CartPage = () => {
         </p>
         )}
 
-        {cartList?.length > 0 && (
-          <button
-            onClick={handleBooking}
-            className="w-full bg-[#00237D] text-white font-bold py-2 px-4 rounded-lg mt-4 hover:bg-[#001F6B] transition"
-          >
-            Book Now (₹2000)
-          </button>
+        {cartList?.length > 0 && !paymentSuccess && (
+          <RazorpayCheckout
+            amount={2000} // Fixed booking amount of ₹2000
+            productData={{
+              id: 'booking',
+              name: 'Booking Fee',
+              description: 'Booking fee for solar products',
+              items: cartList
+            }}
+            userId={(() => {
+              const userSession = localStorage.getItem("userSession");
+              const parsedSession = userSession ? JSON.parse(userSession) : null;
+              return parsedSession?.userId || '';
+            })()}
+            onPaymentSuccess={handlePaymentSuccess}
+            onPaymentError={handlePaymentError}
+            buttonText={`Book Now (₹2000)`}
+            userDetails={(() => {
+              const userSession = localStorage.getItem("userSession");
+              const parsedSession = userSession ? JSON.parse(userSession) : null;
+              return {
+                name: `${parsedSession?.firstName || ''} ${parsedSession?.lastName || ''}`,
+                email: parsedSession?.email || '',
+                phone: parsedSession?.phone || ''
+              };
+            })()}
+          />
+        )}
+        
+        {paymentSuccess && (
+          <div className="mt-4 p-4 bg-green-100 rounded-lg text-center">
+            <p className="text-green-700 font-medium">Booking confirmed! We'll contact you shortly.</p>
+            <button
+              onClick={() => router.push('/afterleadingpage')}
+              className="mt-2 bg-[#00237D] text-white font-bold py-2 px-4 rounded-lg hover:bg-[#001F6B] transition"
+            >
+              Continue Shopping
+            </button>
+          </div>
         )}
       </div>
     </div>
