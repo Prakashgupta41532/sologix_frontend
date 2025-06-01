@@ -10,6 +10,7 @@ import { useSelector } from "react-redux";
 import { message } from "antd";
 import FailureModal from "@/components/Modals/FailureModal";
 import Invoice from "@/components/Invoice/Invoice";
+import RazorpayCheckout from "@/components/Payments/RazorpayCheckout";
 
 const ProductDetails = () => {
     const { id } = useParams();
@@ -61,38 +62,57 @@ const ProductDetails = () => {
         Payback_period: "Payback Period",
     };
     const handelPurchase = async (card) => {
-        const perInstallments = Math.ceil(card.totalAmount / 4);
-        const response = await API.post("/user/purchase", {
-            user: session.userSession.id,
-            productData: card,
-            instamentOne: {
-                amount: perInstallments,
-                status: "pending",
-            },
-            instamentTwo: {
-                amount: perInstallments,
-                status: "pending",
-            },
-            instamentThree: {
-                amount: perInstallments,
-                status: "pending",
-            },
-            instamentFour: {
-                amount: perInstallments,
-                status: "pending",
-            },
-            instamentFive: {
-                amount: perInstallments,
-                status: "pending",
-            },
-        });
-        if (response.status == 200) {
-            setIsModalOpen(true);
-            setPurchaseCompleted(true);
+        // Legacy purchase method - keeping for reference
+        const useRazorpay = true; // Set to true to use Razorpay, false to use legacy method
+        
+        if (!useRazorpay) {
+            const perInstallments = Math.ceil(card.totalAmount / 4);
+            const response = await API.post("/user/purchase", {
+                user: session.userSession.id,
+                productData: card,
+                instamentOne: {
+                    amount: perInstallments,
+                    status: "pending",
+                },
+                instamentTwo: {
+                    amount: perInstallments,
+                    status: "pending",
+                },
+                instamentThree: {
+                    amount: perInstallments,
+                    status: "pending",
+                },
+                instamentFour: {
+                    amount: perInstallments,
+                    status: "pending",
+                },
+                instamentFive: {
+                    amount: perInstallments,
+                    status: "pending",
+                },
+            });
+            if (response.status == 200) {
+                setIsModalOpen(true);
+                setPurchaseCompleted(true);
+            } else {
+                setIsErrorModalOpen(true);
+                message.error(response?.data?.error);
+            }
         } else {
-            setIsErrorModalOpen(true);
-            message.error(response?.data?.error);
+            // Razorpay payment will be handled by the RazorpayCheckout component
+            // The actual purchase logic will be executed after successful payment
         }
+    };
+    
+    const handlePaymentSuccess = (paymentData) => {
+        setIsModalOpen(true);
+        setPurchaseCompleted(true);
+        // You can store payment details in state if needed
+    };
+    
+    const handlePaymentError = (error) => {
+        setIsErrorModalOpen(true);
+        message.error(error?.message || "Payment failed");
     };
 
 
@@ -171,13 +191,19 @@ const ProductDetails = () => {
 
                     <p className="text-2xl font-semibold mt-4 text-right">Total Cost: <span className="text-green-600"> ₹{total}</span></p>
 
-                    <Button
-                        className="w-full bg-[#00237D] text-white rounded-full mt-5"
-                        size="lg"
-                        onClick={() => handelPurchase(getProduct)}
-                    >
-                        Proceed to Checkout (₹{total.toFixed(2)})
-                    </Button>
+                    <RazorpayCheckout
+                        amount={total}
+                        productData={getProduct}
+                        userId={session.userSession.id}
+                        onPaymentSuccess={handlePaymentSuccess}
+                        onPaymentError={handlePaymentError}
+                        buttonText={`Proceed to Checkout (₹${total.toFixed(2)})`}
+                        userDetails={{
+                            name: `${session.userSession?.firstName || ''} ${session.userSession?.lastName || ''}`,
+                            email: session.userSession?.email || '',
+                            phone: session.userSession?.phone || ''
+                        }}
+                    />
                     {purchaseCompleted && !isModalOpen && !showInvoice && (
                         <div className="mt-6 text-center">
                             <Button
