@@ -29,7 +29,19 @@ const Login = () => {
           if (response.status === 200) {
             dispatch(login(response?.data));
             toast.success("Login successful!");
-            router.replace("/afterleadingpage");
+            
+            // Check if there's a redirectProductId in sessionStorage
+            const redirectProductId = sessionStorage.getItem("redirectProductId");
+            
+            if (redirectProductId) {
+              // Clear the stored product ID
+              sessionStorage.removeItem("redirectProductId");
+              // Redirect to the product details page
+              router.replace(`/product-details/${redirectProductId}`);
+            } else {
+              // Default redirect
+              router.replace("/afterleadingpage");
+            }
           } else {
             toast.error(response?.data?.error);
             console.log(response);
@@ -37,14 +49,13 @@ const Login = () => {
         })
         .catch((error) => {
           console.log(error);
-          toast.error("Registration failed!");
+          toast.error("Login failed!");
         })
         .finally(() => {
           setLoading(false);
         });
     } catch (error) {
       setLoading(false);
-
       toast.error("An error occurred. Please try again.");
     }
   };

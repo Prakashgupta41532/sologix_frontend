@@ -6,11 +6,13 @@ import { useRouter } from "next/navigation";
 import { API } from "@/utils";
 import { toast } from "sonner";
 import { ProductCardFirst } from "../product-card/ProductCardFirst";
+import { useSelector } from "react-redux";
 
 export const ExploreProducts = () => {
   const router = useRouter();
   const [loading, setLoading] = useState(false);
   const [productList, setProductList] = useState(null);
+  const session = useSelector((state) => state.session);
 
   const getProductsList = async () => {
     try {
@@ -37,8 +39,16 @@ export const ExploreProducts = () => {
     getProductsList();
   }, []);
 
-  const handleBuyNow = () => {
-    router.push("/login");
+  const handleBuyNow = (productId) => {
+    if (session && session.userSession) {
+      // User is logged in, redirect to product details page
+      router.push(`/product-details/${productId}`);
+    } else {
+      // User is not logged in, redirect to login page
+      // Store the product ID in session storage to redirect after login
+      sessionStorage.setItem("redirectProductId", productId);
+      router.push("/login");
+    }
   };
   return (
     <div className="mt-14">
@@ -60,7 +70,7 @@ export const ExploreProducts = () => {
                   imageSrc={card.system == "On-Grid Solar System" ? "/product-one.png" : "/product-three.png"}
                   description={card.product_description}
                   productDetails={card.product_details}
-                  onBuyNow={handleBuyNow}
+                  onBuyNow={() => handleBuyNow(card._id)}
                   onAddToCart={() => handleAddToCart(card)}
                   productId={card._id}
                   handleAddToCart={() => { }}

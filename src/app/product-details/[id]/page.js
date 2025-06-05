@@ -62,6 +62,15 @@ const ProductDetails = () => {
         Payback_period: "Payback Period",
     };
     const handelPurchase = async (card) => {
+        // Check if user is logged in
+        if (!session.userSession) {
+            // Redirect to login if not logged in
+            router.push('/login');
+            // Store the product ID to redirect back after login
+            sessionStorage.setItem("redirectProductId", id);
+            return;
+        }
+        
         // Legacy purchase method - keeping for reference
         const useRazorpay = true; // Set to true to use Razorpay, false to use legacy method
         
@@ -191,19 +200,32 @@ const ProductDetails = () => {
 
                     <p className="text-2xl font-semibold mt-4 text-right">Total Cost: <span className="text-green-600"> ₹{total}</span></p>
 
-                    <RazorpayCheckout
-                        amount={total}
-                        productData={getProduct}
-                        userId={session.userSession.id}
-                        onPaymentSuccess={handlePaymentSuccess}
-                        onPaymentError={handlePaymentError}
-                        buttonText={`Proceed to Checkout (₹${total.toFixed(2)})`}
-                        userDetails={{
-                            name: `${session.userSession?.firstName || ''} ${session.userSession?.lastName || ''}`,
-                            email: session.userSession?.email || '',
-                            phone: session.userSession?.phone || ''
-                        }}
-                    />
+                    {session.userSession ? (
+                        <RazorpayCheckout
+                            amount={total}
+                            productData={getProduct}
+                            userId={session.userSession?.id}
+                            onPaymentSuccess={handlePaymentSuccess}
+                            onPaymentError={handlePaymentError}
+                            buttonText={`Proceed to Checkout (₹${total.toFixed(2)})`}
+                            userDetails={{
+                                name: `${session.userSession?.firstName || ''} ${session.userSession?.lastName || ''}`,
+                                email: session.userSession?.email || '',
+                                phone: session.userSession?.phone || ''
+                            }}
+                        />
+                    ) : (
+                        <Button
+                            className="bg-[#00237D] text-white rounded-full mt-5 w-full"
+                            onClick={() => {
+                                // Store the product ID to redirect back after login
+                                sessionStorage.setItem("redirectProductId", id);
+                                router.push('/login');
+                            }}
+                        >
+                            Login to Proceed
+                        </Button>
+                    )}
                     {purchaseCompleted && !isModalOpen && !showInvoice && (
                         <div className="mt-6 text-center">
                             <Button
