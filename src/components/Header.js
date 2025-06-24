@@ -99,6 +99,10 @@ const Header = () => {
         },
         {
           key: "2",
+          label: <a href="/payment-history">My Payments</a>,
+        },
+        {
+          key: "3",
           label: <button onClick={handleClickLogout}>Logout</button>,
         },
       ]

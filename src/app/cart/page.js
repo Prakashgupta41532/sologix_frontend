@@ -89,11 +89,50 @@ const CartPage = () => {
   const [paymentSuccess, setPaymentSuccess] = useState(false);
   const [paymentLoading, setPaymentLoading] = useState(false);
 
-  const handlePaymentSuccess = (paymentData) => {
-    toast.success("Booking successful with an amount of ₹2000!");
-    setPaymentSuccess(true);
-    // You can redirect to a success page or show a success modal
-    // router.push('/booking-success');
+  const handlePaymentSuccess = async (paymentData) => {
+    try {
+      // Extract payment details from the paymentData
+      const { paymentDetails } = paymentData;
+      
+      // Get product names from cart items
+      const productNames = cartList.map(item => item.name);
+      
+      // Get access token from localStorage
+      const userSession = localStorage.getItem("userSession");
+      const parsedSession = userSession ? JSON.parse(userSession) : null;
+      const accessToken = parsedSession?.access_token;
+      
+      if (!accessToken) {
+        throw new Error("Access token not found");
+      }
+      
+      // Call the store-payments API endpoint
+      const response = await API.post("/payments/store-payments", {
+        razorpay_order_id: paymentDetails.razorpay_order_id,
+        razorpay_payment_id: paymentDetails.razorpay_payment_id,
+        amount_paid: totalCost,
+        productNames: productNames
+      }, {
+        headers: {
+          'Authorization': `Bearer ${accessToken}`,
+          'Content-Type': 'application/json'
+        }
+      });
+      
+      if (response.status === 200) {
+        toast.success("Payment details stored successfully!");
+      } else {
+        console.error("Error storing payment details:", response);
+        toast.error("Payment successful but failed to store details.");
+      }
+    } catch (error) {
+      console.error("API Error when storing payment:", error);
+      toast.error("Payment successful but failed to store details.");
+    } finally {
+      // Update UI state regardless of API call result
+      toast.success(`Booking successful with an amount of ₹${totalCost}!`);
+      setPaymentSuccess(true);
+    }
   };
 
   const handlePaymentError = (error) => {

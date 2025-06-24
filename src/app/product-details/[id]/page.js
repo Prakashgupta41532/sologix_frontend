@@ -47,7 +47,9 @@ const ProductDetails = () => {
             setLoading(false);
         }
     };
-
+    const cost = getProduct?.product_details?.Cost_to_consumer;
+    const tax = cost * 0.18;
+    const total = cost + tax;
     useEffect(() => {
         if (id) getSingleProduct();
     }, [id]);
@@ -113,16 +115,46 @@ const ProductDetails = () => {
         }
     };
     
-    const handlePaymentSuccess = (paymentData) => {
-        setIsModalOpen(true);
-        setPurchaseCompleted(true);
-        // You can store payment details in state if needed
+    const handlePaymentSuccess = async (paymentData) => {
+        try {
+            // Extract payment details from the paymentData
+            const { paymentDetails } = paymentData;
+            
+            // Call the store-payments API endpoint
+            const response = await API.post("/payments/store-payments", {
+                razorpay_order_id: paymentDetails.razorpay_order_id,
+                razorpay_payment_id: paymentDetails.razorpay_payment_id,
+                amount_paid: total,
+                productNames: [getProduct.name]
+            }, {
+                headers: {
+                    'Authorization': `Bearer ${session.userSession?.token}`,
+                    'Content-Type': 'application/json'
+                }
+            });
+            
+            if (response.status === 200) {
+                toast.success("Payment details stored successfully!");
+            } else {
+                console.error("Error storing payment details:", response);
+                toast.error("Payment successful but failed to store details.");
+            }
+        } catch (error) {
+            console.error("API Error when storing payment:", error);
+            toast.error("Payment successful but failed to store details.");
+        } finally {
+            // Update UI state regardless of API call result
+            setIsModalOpen(true);
+            setPurchaseCompleted(true);
+        }
     };
     
     const handlePaymentError = (error) => {
         setIsErrorModalOpen(true);
         message.error(error?.message || "Payment failed");
     };
+
+
 
 
 
@@ -139,9 +171,8 @@ const ProductDetails = () => {
                 <p className="text-lg font-medium text-red-500">No product found.</p>
             </div>
         );
-    const cost = getProduct?.product_details?.Cost_to_consumer;
-    const tax = cost * 0.18;
-    const total = cost + tax;
+
+
     return (
         <div className="max-w-7xl mx-auto p-4 md:p-8">
             <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
