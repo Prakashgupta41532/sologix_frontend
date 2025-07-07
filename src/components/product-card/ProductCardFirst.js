@@ -20,6 +20,13 @@ export const ProductCardFirst = ({
         System_life: "System Life",
         Payback_period: "Payback Period",
     };
+    const units = {
+        Roof_area_required: "m²",
+        Annual_energy_generation: "kWh",
+        Annual_saving: "₹",
+        System_life: "yrs",
+        Payback_period: "yrs",
+    };
 
     return (
         <div className="w-[320px] bg-white rounded-xl shadow-lg p-6 cursor-pointer" key={productId} onClick={handlePressCard}>
@@ -47,16 +54,21 @@ export const ProductCardFirst = ({
                 {Object.entries(labels).map(([key, label], index) => (
                     <div key={key} className={`flex ${index !== Object.keys(labels).length - 1 ? "border-b" : ""}`}>
                         <div className="flex-1 p-2 bg-gray-50 border-r text-sm">{label}</div>
-                        <div className="flex-1 p-2 text-sm text-right">{productDetails[key]}</div>
+                        <div className="flex-1 p-2 text-sm text-right">
+                            {key === "Annual_saving" ? "₹" + productDetails[key] :
+                                key === "Cost_to_consumer" ? "" :
+                                    key === "Annual_energy_generation" ? productDetails[key] + " kWh" :
+                                        productDetails[key] + (units[key] ? " " + units[key] : "")}
+                        </div>
                     </div>
                 ))}
             </div>
 
             {/* Highlighted Cost to Consumer */}
             <div className="flex justify-between items-center border border-gray-300 p-3 rounded-lg mb-4">
-    <span className="text-lg font-bold text-black">Cost to Consumer:</span>
-    <span className="text-lg font-bold text-green-600">₹{productDetails.Cost_to_consumer}</span>
-</div>
+                <span className="text-lg font-bold text-black">Cost to Consumer:</span>
+                <span className="text-lg font-bold text-green-600">₹{productDetails.Cost_to_consumer}</span>
+            </div>
 
 
 

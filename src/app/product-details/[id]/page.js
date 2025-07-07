@@ -63,6 +63,14 @@ const ProductDetails = () => {
         System_life: "System Life",
         Payback_period: "Payback Period",
     };
+    const units = {
+        Roof_area_required: "m²",
+        Annual_energy_generation: "kWh",
+        Annual_saving: "₹",
+        System_life: "yrs",
+        Payback_period: "yrs",
+    };
+
     const handelPurchase = async (card) => {
         // Check if user is logged in
         if (!session.userSession) {
@@ -200,7 +208,9 @@ const ProductDetails = () => {
                         {Object.entries(labels).map(([key, label], index) => (
                             <div key={key} className={`flex ${index !== Object.keys(labels).length - 1 ? "border-b" : ""}`}>
                                 <div className="flex-1 p-2 bg-gray-50 border-r text-md">{label}</div>
-                                <div className="flex-1 p-2 text-md text-right font-bold">{getProduct.product_details[key]}</div>
+                                <div className="flex-1 p-2 text-md text-right font-bold">
+                                    {getProduct.product_details[key] + (units[key] ? " " + units[key] : "")}
+                                </div>
                             </div>
                         ))}
                     </div>
