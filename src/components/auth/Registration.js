@@ -1,10 +1,14 @@
 "use client";
 import { API } from "@/utils";
+import { useRouter } from "next/navigation";
 import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import { toast } from "sonner";
 import { z } from "zod";
+
 export const Registration = () => {
+  const router = useRouter();
+  
   const schema = z.object({
     email: z.string().email("Invalid email address").min(5),
     phone: z.string().min(10, "Phone number must be at least 10 digits"),
@@ -38,6 +42,7 @@ export const Registration = () => {
         .then((response) => {
           if (response.status === 200) {
             toast.success("Registration successful!");
+            router.push("/login");
             // Reset form inputs
             reset({
               email: "",

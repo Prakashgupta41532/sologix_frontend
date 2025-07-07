@@ -18,7 +18,7 @@ export const Footer = () => {
           Renewable, Reliable, and Affordable.
         </p>
         <ul className="list-none p-0">
-          
+
           <li className="mb-1">
             <a
               href="/termCondition"
@@ -43,7 +43,7 @@ export const Footer = () => {
               Return Policy
             </a>
           </li>
-         
+
         </ul>
       </div>
       <div className="flex-1 mb-6 md:mb-0 ml-0 md:ml-8">
@@ -123,29 +123,34 @@ export const Footer = () => {
       </div> */}
       <div className="flex-1">
         <h3 className="text-lg font-bold mb-2">Contact Us</h3>
-        <div className="flex  gap-4">
+        <div className="flex gap-4">
           <EnvironmentOutlined />
-          <p className="my-3">
-            STPI Building, Plot -8, Namkum Industrial Area, Ranchi, Jharkhand -
-            834010
-          </p>
+          <a
+            href="https://www.google.com/maps/search/?api=1&query=STPI+Building,+Plot+-8,+Namkum+Industrial+Area,+Ranchi,+Jharkhand+-+834010"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="my-3 text-blue-600 hover:underline"
+          >
+            STPI Building, Plot -8, Namkum Industrial Area, Ranchi, Jharkhand - 834010
+          </a>
         </div>
+
 
         <div className="flex gap-4 items-center">
           <MailOutlined className="text-xl text-gray-600" />
           <div className="flex flex-col space-y-2">
             <Link
               href="mailto:info@sologixenergy.in"
-              className="text-blue-500 hover:underline"
+              className="text-black-500 hover:underline"
             >
               info@sologixenergy.in
             </Link>
-            <Link
+            <div
               href="mailto:amit@sologixenergy.in"
-              className="text-blue-500 hover:underline"
+              className="text-black hover:underline"
             >
               amit@sologixenergy.in
-            </Link>
+            </div>
             {/* <Link
               href="mailto:anil@sologixenergy.in"
               className="text-blue-500 hover:underline"
@@ -155,7 +160,7 @@ export const Footer = () => {
           </div>
         </div>
         <div className="flex gap-4">
-        <PhoneOutlined />
+          <PhoneOutlined />
           <p className="my-3">+91-8287766474</p>
         </div>
       </div>
