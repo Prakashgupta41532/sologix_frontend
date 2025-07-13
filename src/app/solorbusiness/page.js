@@ -746,27 +746,167 @@ const SolorBusiness = () => {
           </div>
         </div>
       </div>
-      <div className="p-5">
-        <h1 className="text-center font-bold text-4xl mb-8 text-[#2D479E]">Case Study</h1>
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 mb-8">
-          {caseStudies.map((study) => (
-            <div key={study.id} className="drop-shadow-2xl">
-              <Card>
-                <Image src={study.image} className="shadow-2xl" />
-                <div className="mt-3">
-                  <h1 className="text-center text-base font-medium">
-                    {study.title}
-                  </h1>
+      <div className="p-5 bg-white">
+        <h1 className="text-center font-bold text-4xl mb-8 text-[#2D479E]">Case Studies</h1>
+        
+        {/* Featured Case Study */}
+        <div className="max-w-6xl mx-auto bg-white rounded-lg overflow-hidden shadow-lg mb-16">
+          <div className="p-8">
+            <div className="flex flex-col lg:flex-row">
+              <div className="lg:w-2/3 pr-0 lg:pr-8">
+                <h2 className="text-2xl font-bold text-[#2D479E] mb-2">Solar Mini-Grid Electrification in Chatra, Jharkhand</h2>
+                <p className="text-gray-500 mb-4 text-sm">Commissioned: March 2024 | Capacity: 25 kW (Scalable Design)</p>
+                
+                <div className="bg-blue-50 p-5 rounded-lg mb-6">
+                  <h3 className="text-xl font-semibold text-[#2D479E] mb-3">Project Overview</h3>
+                  <p className="mb-4">A transformative solar mini-grid installation bringing reliable electricity to remote villages in Chatra District, Jharkhand, serving over 140 households, 20+ small businesses, a school, and a health sub-centre.</p>
+                  
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mt-4">
+                    <div>
+                      <h4 className="font-semibold text-[#23bae4] mb-2">Technical Specifications</h4>
+                      <ul className="list-disc pl-5 space-y-1">
+                        <li>Monocrystalline 540W x 48 panels (~26 kW)</li>
+                        <li>30kW Hybrid Inverter (off-grid + grid-tied)</li>
+                        <li>96 kWh Lithium-Ion Battery Bank</li>
+                        <li>LT Line (Single-phase & 3-phase distribution)</li>
+                        <li>Prepaid IoT meters with remote monitoring</li>
+                      </ul>
+                    </div>
+                    <div>
+                      <h4 className="font-semibold text-[#23bae4] mb-2">Key Features</h4>
+                      <ul className="list-disc pl-5 space-y-1">
+                        <li>24/7 reliable power supply</li>
+                        <li>Prepaid metering with mobile recharge model</li>
+                        <li>AI-enabled demand prediction & load balancing</li>
+                        <li>Designed for productive loads</li>
+                        <li>Built-in capacity for expansion</li>
+                      </ul>
+                    </div>
+                  </div>
                 </div>
-                <div className="flex justify-end mt-2">
-                  <Button className="bg-[#324CA2] border text-white">
-                    Show More
-                  </Button>
+                
+                <div className="mb-6">
+                  <h3 className="text-xl font-semibold text-[#2D479E] mb-3">Impact Highlights</h3>
+                  <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+                    <div className="bg-gray-50 p-4 rounded-lg text-center">
+                      <p className="text-3xl font-bold text-[#23bae4]">90%</p>
+                      <p className="text-sm">Increase in evening productivity</p>
+                    </div>
+                    <div className="bg-gray-50 p-4 rounded-lg text-center">
+                      <p className="text-3xl font-bold text-[#23bae4]">₹1,800</p>
+                      <p className="text-sm">Average household monthly income increase</p>
+                    </div>
+                    <div className="bg-gray-50 p-4 rounded-lg text-center">
+                      <p className="text-3xl font-bold text-[#23bae4]">70%</p>
+                      <p className="text-sm">Reduction in kerosene usage</p>
+                    </div>
+                    <div className="bg-gray-50 p-4 rounded-lg text-center">
+                      <p className="text-3xl font-bold text-[#23bae4]">0</p>
+                      <p className="text-sm">Carbon emissions from energy source</p>
+                    </div>
+                  </div>
                 </div>
-              </Card>
+                
+                <div className="mb-6">
+                  <h3 className="text-xl font-semibold text-[#2D479E] mb-3">Social & Economic Transformation</h3>
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div>
+                      <h4 className="font-semibold text-[#23bae4] mb-2">Household Benefits</h4>
+                      <p>Families now enjoy clean lighting, television access, fans, and mobile charging capabilities, significantly reducing kerosene dependency and improving quality of life.</p>
+                    </div>
+                    <div>
+                      <h4 className="font-semibold text-[#23bae4] mb-2">Business Growth</h4>
+                      <p>Local shops, tailors, and flour mills now operate extended hours, boosting income and creating new economic opportunities within the community.</p>
+                    </div>
+                    <div>
+                      <h4 className="font-semibold text-[#23bae4] mb-2">Education Impact</h4>
+                      <p>The local school now benefits from lighting, fans, and digital learning setups, enhancing the learning environment for students.</p>
+                    </div>
+                    <div>
+                      <h4 className="font-semibold text-[#23bae4] mb-2">Healthcare Improvements</h4>
+                      <p>The rural health centre now has refrigeration for vaccines and night lighting, enabling better healthcare services for the community.</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              
+              <div className="lg:w-1/3 mt-6 lg:mt-0">
+                <div className="bg-gray-50 p-5 rounded-lg mb-6">
+                  <h3 className="text-xl font-semibold text-[#2D479E] mb-3">Challenges & Solutions</h3>
+                  <div className="space-y-4">
+                    <div>
+                      <p className="font-semibold">Difficult terrain for equipment transport</p>
+                      <p className="text-sm text-gray-600">Used modular mounting + local labor</p>
+                    </div>
+                    <div>
+                      <p className="font-semibold">Load variability during agricultural seasons</p>
+                      <p className="text-sm text-gray-600">Integrated AI-based load forecasting</p>
+                    </div>
+                    <div>
+                      <p className="font-semibold">Bill collection in cash-only economy</p>
+                      <p className="text-sm text-gray-600">Introduced mobile recharge-based prepaid token system</p>
+                    </div>
+                    <div>
+                      <p className="font-semibold">Lack of skilled manpower</p>
+                      <p className="text-sm text-gray-600">Trained local youth as microgrid technicians</p>
+                    </div>
+                  </div>
+                </div>
+                
+                <div className="bg-gray-50 p-5 rounded-lg mb-6">
+                  <h3 className="text-xl font-semibold text-[#2D479E] mb-3">Partners & Support</h3>
+                  <ul className="space-y-2">
+                    <li><span className="font-semibold">Funding:</span> CSR-backed + Partial Community Contribution</li>
+                    <li><span className="font-semibold">Support:</span> Local Panchayats, Jharkhand Renewable Energy Development Agency (JREDA)</li>
+                    <li><span className="font-semibold">O&M:</span> Sologix O&M Team with local technician training</li>
+                  </ul>
+                </div>
+                
+                <div className="bg-gray-50 p-5 rounded-lg">
+                  <h3 className="text-xl font-semibold text-[#2D479E] mb-3">Future Roadmap</h3>
+                  <ul className="list-disc pl-5 space-y-1">
+                    <li>Solar cold storage and water pumping stations</li>
+                    <li>Community EV charging infrastructure</li>
+                    <li>Micro-financing for household appliances</li>
+                    <li>Scale to 15+ villages in Jharkhand and Bihar</li>
+                  </ul>
+                </div>
+                
+                {/* <div className="mt-6">
+                  <Button className="bg-[#324CA2] border text-white w-full py-2 h-auto">Request Similar Solution</Button>
+                </div> */}
+              </div>
+            </div>
+          </div>
+          
+          <div className="p-6 bg-blue-50">
+            <p className="italic text-center">"This mini-grid in Chatra is a flagship project of Sologix Energy, demonstrating how clean, decentralized solar power can transform rural lives. It's not just about electricity — it's about opportunity, dignity, and future-readiness."</p>
+          </div>
+        </div>
+        
+        {/* Other Case Studies - Preview Cards */}
+        {/* <h2 className="text-2xl font-bold text-[#2D479E] mb-6 text-center">More Success Stories</h2>
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 max-w-6xl mx-auto">
+          {caseStudies.slice(0, 3).map((study) => (
+            <div key={study.id} className="bg-white rounded-lg overflow-hidden shadow-md hover:shadow-lg transition-shadow duration-300">
+              <div className="relative">
+                <Image src={study.image} alt={study.title} className="w-full h-48 object-cover" />
+                <div className="absolute top-0 right-0 bg-[#23bae4] text-white px-2 py-1 text-xs">Case Study</div>
+              </div>
+              <div className="p-5">
+                <h3 className="font-bold text-lg mb-2">{study.title}</h3>
+                <p className="text-gray-600 text-sm mb-4">Solar mini-grid implementation providing sustainable energy solutions to rural communities.</p>
+                <div className="flex justify-end">
+                  <Button className="bg-[#324CA2] border text-white hover:bg-[#213890] transition-colors">View Details</Button>
+                </div>
+              </div>
             </div>
           ))}
-        </div>
+        </div> */}
+        
+        {/* <div className="flex justify-center mt-10">
+          <Button className="bg-white border border-[#324CA2] text-[#324CA2] hover:bg-[#f0f5ff] transition-colors">View All Case Studies</Button>
+        </div> */}
       </div>
     </div>
   );
